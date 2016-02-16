@@ -292,4 +292,16 @@ public class GameEngine {
 		token = token == 0 ? 1 : 0;
 		selCards.clear();
 	}
+	
+	public Player getPlayer(){
+		return players[token];
+	}
+	
+	public List<Integer> getSelCards(){
+		return selCards;
+	}
+	
+	public Map<CardType, List<Card>> getBoard(){
+		return board;
+	}
 }
