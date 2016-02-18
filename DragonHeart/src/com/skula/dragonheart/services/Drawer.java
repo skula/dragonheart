@@ -20,8 +20,8 @@ import com.skula.dragonheart.models.Player;
 import com.skula.dragonheart.models.Point;
 
 public class Drawer {	
-	private static final int CARD_DX = 10;
-	private static final int CARD_DY = 10;
+	private static final int CARD_DX = 14;
+	private static final int CARD_DY = 14;
 
 	private GameEngine gEngine;
 	
@@ -38,23 +38,26 @@ public class Drawer {
 
 	public void draw(Canvas c) {
 		drawBoard(c);
-		drawPict(c, R.drawable.dwarf_4, DrawAreas.DRAGON_FIRE);
-		//drawHand(c);
-		//drawCardsSel(c);
+		drawHand(c);
+		drawCardsSel(c);
 		//drawTouchAreas(c);
 	}
 
 	private void drawBoard(Canvas c) {
-		drawPict(c, R.drawable.board, new Point(0,0));
+		drawPict(c, R.drawable.board, new Point(15,0));
 		
-		/*Map<CardType, List<Card>> board = gEngine.getBoard();
+		Map<CardType, List<Card>> board = gEngine.getBoard();
 		Point p = null;
 		for(CardType ct : board.keySet()){
 			p = DrawAreas.get(ct);
 			for(int i =0; i<board.get(ct).size(); i++){
-				drawPict(c, board.get(ct).get(i).getDrawableId(), p.clone(i*CARD_DX, i*CARD_DY));
+				if(ct == CardType.HUNTRESS || ct == CardType.SHIP || ct == CardType.KNIGHT || ct == CardType.DWARF){
+					drawPict(c, board.get(ct).get(i).getDrawableId(), p.clone(i*CARD_DX, i*CARD_DY));
+				}else{
+					drawPict(c, board.get(ct).get(i).getDrawableId(), p);
+				}
 			}
-		}*/
+		}
 	}
 
 	private void drawTouchAreas(Canvas c) {
@@ -89,33 +92,33 @@ public class Drawer {
 	private void drawCardsSel(Canvas c) {
 		if(gEngine.getMode()==GameEngine.MODE_PLAY){
 			for(Integer i : gEngine.getSelCards()){
-			/*	switch(sel[i]){
+				switch(i){
 				case 0:
-					c.drawPict(c, R.drawable.card_sel_h, DrawAreas.Card_1);
+					drawPict(c, R.drawable.card_sel_v, DrawAreas.CARD_1);
 					break;
 				case 1:
-					c.drawPict(c, R.drawable.card_sel_h, DrawAreas.Card_2);
+					drawPict(c, R.drawable.card_sel_v, DrawAreas.CARD_2);
 					break;
 				case 2:
-					c.drawPict(c, R.drawable.card_sel_h, DrawAreas.Card_3);
+					drawPict(c, R.drawable.card_sel_v, DrawAreas.CARD_3);
 					break;
 				case 3:
-					c.drawPict(c, R.drawable.card_sel_h, DrawAreas.Card_4);
+					drawPict(c, R.drawable.card_sel_v, DrawAreas.CARD_4);
 					break;
 				case 4:
-					c.drawPict(c, R.drawable.card_sel_h, DrawAreas.Card_5);
+					drawPict(c, R.drawable.card_sel_v, DrawAreas.CARD_5);
 					break;
 				case 5:
-					c.drawPict(c, R.drawable.card_sel_h, DrawAreas.Card_6);
+					drawPict(c, R.drawable.card_sel_v, DrawAreas.CARD_6);
 					break;			
-				}*/
+				}
 			}
 		}else if(gEngine.getMode()==GameEngine.MODE_CHOOSE_PRINCESS){
-			//c.drawPict(c, R.drawable.card_sel_v, DrawAreas.DRAGON_STONE);
-			//c.drawPict(c, R.drawable.card_sel_h, DrawAreas.TREASURE);
+			drawPict(c, R.drawable.card_sel_h, DrawAreas.DRAGON_STONE);
+			drawPict(c, R.drawable.card_sel_v, DrawAreas.TREASURE);
 		}else {
-			//c.drawPict(c, R.drawable.card_sel_v, DrawAreas.TROLL);
-			//c.drawPict(c, R.drawable.card_sel_v, DrawAreas.PRINCESS);
+			drawPict(c, R.drawable.card_sel_v, DrawAreas.TROLL);
+			drawPict(c, R.drawable.card_sel_v, DrawAreas.PRINCESS);
 		}
 	}
 

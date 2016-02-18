@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.skula.dragonheart.R;
 import com.skula.dragonheart.cnst.TouchAreas;
 import com.skula.dragonheart.enums.CardType;
 import com.skula.dragonheart.models.Card;
@@ -48,6 +49,20 @@ public class GameEngine {
 		this.shipHold = new ArrayList<Card>();
 
 		this.selCards = new ArrayList<Integer>();
+		
+		// bouchon:
+		selCards.add(1);
+		selCards.add(3);
+		selCards.add(4);
+		
+		this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_1, CardType.HUNTRESS, 1));
+		this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_2, CardType.HUNTRESS, 2));
+		this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_3, CardType.HUNTRESS, 3));
+		this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
+		this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
+		this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
+		this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
+		this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
 	}
 
 	public boolean process(int areaId) {

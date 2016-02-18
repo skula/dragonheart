@@ -49,7 +49,7 @@ public class BoardView extends View {
 			y0 = 0;
 			break;
 		}
-		invalidate();
+		//invalidate();
 		return true;
 	}
 
