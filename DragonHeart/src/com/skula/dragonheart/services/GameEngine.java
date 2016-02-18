@@ -51,18 +51,31 @@ public class GameEngine {
 		this.selCards = new ArrayList<Integer>();
 		
 		// bouchon:
-		selCards.add(1);
-		selCards.add(3);
-		selCards.add(4);
+		//selCards.add(1);
+		//selCards.add(3);
+		//selCards.add(4);
 		
 		this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_1, CardType.HUNTRESS, 1));
 		this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_2, CardType.HUNTRESS, 2));
-		this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_3, CardType.HUNTRESS, 3));
 		this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
 		this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
 		this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
 		this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
-		this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
+		this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
+		this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
+		this.board.get(CardType.PRINCESS).add(new Card(R.drawable.princess_1, CardType.PRINCESS, 1));
+		this.board.get(CardType.PRINCESS).add(new Card(R.drawable.princess_1, CardType.PRINCESS, 1));
+		this.board.get(CardType.KNIGHT).add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
+		this.board.get(CardType.TROLL).add(new Card(R.drawable.troll_1, CardType.TROLL, 1));
+		this.board.get(CardType.TROLL).add(new Card(R.drawable.troll_1, CardType.TROLL, 1));
+		this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
+		this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
+		this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
+		this.board.get(CardType.DRAGON_STONE).add(new Card(R.drawable.dragon_stone_1_v, CardType.DRAGON_STONE, 1));
+		
+		this.shipHold.add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
+		
+		players[token].setBonus(true);
 	}
 
 	public boolean process(int areaId) {
@@ -318,5 +331,9 @@ public class GameEngine {
 	
 	public Map<CardType, List<Card>> getBoard(){
 		return board;
+	}
+
+	public List<Card> getShipHold() {
+		return shipHold;
 	}
 }

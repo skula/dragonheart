@@ -19,12 +19,12 @@ import com.skula.dragonheart.models.Card;
 import com.skula.dragonheart.models.Player;
 import com.skula.dragonheart.models.Point;
 
-public class Drawer {	
+public class Drawer {
 	private static final int CARD_DX = 14;
 	private static final int CARD_DY = 14;
 
 	private GameEngine gEngine;
-	
+
 	private PictureLibrary lib;
 	private Paint paint;
 
@@ -40,36 +40,57 @@ public class Drawer {
 		drawBoard(c);
 		drawHand(c);
 		drawCardsSel(c);
-		//drawTouchAreas(c);
+		// drawTouchAreas(c);
 	}
 
+	// TODO: faire un switch sur les type de cartes. afficher la derniere carte pour les emplacements uniques
 	private void drawBoard(Canvas c) {
-		drawPict(c, R.drawable.board, new Point(15,0));
-		
+		//drawPict(c, R.drawable.parchemin, new Point(15, 0));
+		drawPict(c, R.drawable.board, new Point(15, 0));
 		Map<CardType, List<Card>> board = gEngine.getBoard();
 		Point p = null;
-		for(CardType ct : board.keySet()){
+		for (CardType ct : board.keySet()) {
 			p = DrawAreas.get(ct);
-			for(int i =0; i<board.get(ct).size(); i++){
-				if(ct == CardType.HUNTRESS || ct == CardType.SHIP || ct == CardType.KNIGHT || ct == CardType.DWARF){
-					drawPict(c, board.get(ct).get(i).getDrawableId(), p.clone(i*CARD_DX, i*CARD_DY));
-				}else{
-					drawPict(c, board.get(ct).get(i).getDrawableId(), p);
+			for (int i = 0; i < board.get(ct).size(); i++) {
+				if (ct == CardType.HUNTRESS || ct == CardType.SHIP || ct == CardType.KNIGHT || ct == CardType.DWARF) {
+					drawPict(c, board.get(ct).get(i).getDrawableId(), p.clone(i * CARD_DX, i * CARD_DY));
+				} else {
+					switch (board.get(ct).get(i).getDrawableId()) {
+					case R.drawable.dragon_stone_1_v:
+						drawPict(c, R.drawable.dragon_stone_1_h, p);
+						break;
+					case R.drawable.dragon_stone_2_v:
+						drawPict(c, R.drawable.dragon_stone_2_h, p);
+						break;
+					case R.drawable.dragon_stone_3_v:
+						drawPict(c, R.drawable.dragon_stone_3_h, p);
+						break;
+					case R.drawable.dragon_stone_4_v:
+						drawPict(c, R.drawable.dragon_stone_4_h, p);
+						break;
+					default:
+						drawPict(c, board.get(ct).get(i).getDrawableId(), p);
+						break;
+					}
 				}
 			}
+		}
+		
+		for(Card sh : gEngine.getShipHold()){
+			drawPict(c, sh.getDrawableId(), DrawAreas.SHIP_HOLD);
 		}
 	}
 
 	private void drawTouchAreas(Canvas c) {
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setColor(Color.WHITE);
-		
+
 		c.drawRect(TouchAreas.CARD_1, paint);
 		c.drawRect(TouchAreas.CARD_2, paint);
 		c.drawRect(TouchAreas.CARD_3, paint);
 		c.drawRect(TouchAreas.CARD_4, paint);
 		c.drawRect(TouchAreas.CARD_5, paint);
-		
+
 		c.drawRect(TouchAreas.BOARD, paint);
 		c.drawRect(TouchAreas.DRAGON_STONE, paint);
 		c.drawRect(TouchAreas.TREASURE, paint);
@@ -84,15 +105,15 @@ public class Drawer {
 		drawPict(c, p.getCard(2).getDrawableId(), DrawAreas.CARD_3);
 		drawPict(c, p.getCard(3).getDrawableId(), DrawAreas.CARD_4);
 		drawPict(c, p.getCard(4).getDrawableId(), DrawAreas.CARD_5);
-		if(p.hasBonus()){
+		if (p.hasBonus()) {
 			drawPict(c, p.getCard(5).getDrawableId(), DrawAreas.CARD_6);
 		}
 	}
-	
+
 	private void drawCardsSel(Canvas c) {
-		if(gEngine.getMode()==GameEngine.MODE_PLAY){
-			for(Integer i : gEngine.getSelCards()){
-				switch(i){
+		if (gEngine.getMode() == GameEngine.MODE_PLAY) {
+			for (Integer i : gEngine.getSelCards()) {
+				switch (i) {
 				case 0:
 					drawPict(c, R.drawable.card_sel_v, DrawAreas.CARD_1);
 					break;
@@ -110,13 +131,13 @@ public class Drawer {
 					break;
 				case 5:
 					drawPict(c, R.drawable.card_sel_v, DrawAreas.CARD_6);
-					break;			
+					break;
 				}
 			}
-		}else if(gEngine.getMode()==GameEngine.MODE_CHOOSE_PRINCESS){
+		} else if (gEngine.getMode() == GameEngine.MODE_CHOOSE_PRINCESS) {
 			drawPict(c, R.drawable.card_sel_h, DrawAreas.DRAGON_STONE);
 			drawPict(c, R.drawable.card_sel_v, DrawAreas.TREASURE);
-		}else {
+		} else {
 			drawPict(c, R.drawable.card_sel_v, DrawAreas.TROLL);
 			drawPict(c, R.drawable.card_sel_v, DrawAreas.PRINCESS);
 		}

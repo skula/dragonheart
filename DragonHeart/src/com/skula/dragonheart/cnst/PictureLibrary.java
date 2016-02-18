@@ -17,6 +17,7 @@ public class PictureLibrary {
 	public PictureLibrary(Resources res) {
 		this.map = new HashMap<Integer, Bitmap>();
 		this.map.put(R.drawable.board, BitmapFactory.decodeResource(res, R.drawable.board));
+		this.map.put(R.drawable.parchemin, BitmapFactory.decodeResource(res, R.drawable.parchemin));
 		this.map.put(R.drawable.card_sel_h, BitmapFactory.decodeResource(res, R.drawable.card_sel_h));
 		this.map.put(R.drawable.card_sel_v, BitmapFactory.decodeResource(res, R.drawable.card_sel_v));
 		this.map.put(R.drawable.huntress_1, BitmapFactory.decodeResource(res, R.drawable.huntress_1));
