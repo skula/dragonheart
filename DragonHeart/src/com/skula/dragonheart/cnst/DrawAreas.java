@@ -13,7 +13,7 @@ public class DrawAreas {
 	public static final Point CARD_5 = new Point(1030, 500);
 	public static final Point CARD_6 = new Point(1155, 500);
 	
-	public static final Point BOARD = new Point(0, 0);	
+	public static final Point BOARD = new Point(15, 0);	
 	public static final Point SHIP_HOLD = new Point(380, 410);
 	
 	public static final Point HUNTRESS = new Point(36, 160);

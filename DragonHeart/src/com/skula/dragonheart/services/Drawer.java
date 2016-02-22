@@ -40,13 +40,13 @@ public class Drawer {
 		drawBoard(c);
 		drawHand(c);
 		drawCardsSel(c);
-		// drawTouchAreas(c);
+		 drawTouchAreas(c);
 	}
 
 	// TODO: faire un switch sur les type de cartes. afficher la derniere carte pour les emplacements uniques
 	private void drawBoard(Canvas c) {
 		//drawPict(c, R.drawable.parchemin, new Point(15, 0));
-		drawPict(c, R.drawable.board, new Point(15, 0));
+		drawPict(c, R.drawable.board, DrawAreas.BOARD);
 		Map<CardType, List<Card>> board = gEngine.getBoard();
 		Point p = null;
 		for (CardType ct : board.keySet()) {
@@ -90,6 +90,7 @@ public class Drawer {
 		c.drawRect(TouchAreas.CARD_3, paint);
 		c.drawRect(TouchAreas.CARD_4, paint);
 		c.drawRect(TouchAreas.CARD_5, paint);
+		c.drawRect(TouchAreas.CARD_6, paint);
 
 		c.drawRect(TouchAreas.BOARD, paint);
 		c.drawRect(TouchAreas.DRAGON_STONE, paint);
