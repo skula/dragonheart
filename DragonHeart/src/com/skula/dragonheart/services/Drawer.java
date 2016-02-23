@@ -37,15 +37,49 @@ public class Drawer {
 	}
 
 	public void draw(Canvas c) {
-		drawBoard(c);
-		drawHand(c);
-		drawCardsSel(c);
+		switch (gEngine.getPhase()) {
+		case GameEngine.PHASE_PLAY:
+			drawBoard(c);
+			drawScore(c);
+			drawHand(c);
+			drawCardsSel(c);
+			break;
+		case GameEngine.PHASE_END_TURN:
+			drawBoard(c);
+			drawScore(c);
+			drawHand(c);
+			drawCardsSel(c);
+			break;
+		case GameEngine.PHASE_WAIT_PLAYER:
+			drawBoard(c);
+			paint.setTextSize(40f);
+			c.drawText("En attente du joueur suivant", 150, 600, paint);
+			break;
+		}
 		// drawTouchAreas(c);
 	}
 
-	// TODO: faire un switch sur les type de cartes. afficher la derniere carte pour les emplacements uniques
+	private void drawScore(Canvas c) {
+		// TODO: afficher:
+		// 1) nombre de cartes restantes des 2 joueurs
+		drawPict(c, R.drawable.deck_green, new Point(10, 460));
+		paint.setTextSize(60f);
+		paint.setColor(Color.WHITE);
+		c.drawText(gEngine.players[0].getCardsLeft() + "", 60, 540, paint);
+		drawPict(c, R.drawable.deck_red, new Point(10, 595));
+		c.drawText(gEngine.players[1].getCardsLeft() + "", 60, 675, paint);
+		// 2) points (pour le joueur token uniquemen)
+		// 3) le dragon (si un joueur l'a)
+		if (gEngine.players[0].hasBonus()) {
+			drawPict(c, R.drawable.bonus, new Point(200, 460));
+		}
+		if (gEngine.players[1].hasBonus()) {
+			drawPict(c, R.drawable.bonus, new Point(200, 595));
+		}
+	}
+
+	// TODO: afficher fond
 	private void drawBoard(Canvas c) {
-		//drawPict(c, R.drawable.parchemin, new Point(15, 0));
 		drawPict(c, R.drawable.board, DrawAreas.BOARD);
 		Map<CardType, List<Card>> board = gEngine.getBoard();
 		Point p = null;
@@ -56,17 +90,8 @@ public class Drawer {
 					drawPict(c, board.get(ct).get(i).getDrawableId(), p.clone(i * CARD_DX, i * CARD_DY));
 				} else {
 					switch (board.get(ct).get(i).getDrawableId()) {
-					case R.drawable.dragon_stone_1_v:
-						drawPict(c, R.drawable.dragon_stone_1_h, p);
-						break;
 					case R.drawable.dragon_stone_2_v:
 						drawPict(c, R.drawable.dragon_stone_2_h, p);
-						break;
-					case R.drawable.dragon_stone_3_v:
-						drawPict(c, R.drawable.dragon_stone_3_h, p);
-						break;
-					case R.drawable.dragon_stone_4_v:
-						drawPict(c, R.drawable.dragon_stone_4_h, p);
 						break;
 					default:
 						drawPict(c, board.get(ct).get(i).getDrawableId(), p);
@@ -75,8 +100,8 @@ public class Drawer {
 				}
 			}
 		}
-		
-		for(Card sh : gEngine.getShipHold()){
+
+		for (Card sh : gEngine.getShipHold()) {
 			drawPict(c, sh.getDrawableId(), DrawAreas.SHIP_HOLD);
 		}
 	}

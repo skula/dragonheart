@@ -15,18 +15,25 @@ public class GameEngine {
 	public static final int MODE_PLAY = 0;
 	public static final int MODE_CHOOSE_PRINCESS = 1;
 	public static final int MODE_CHOOSE_KNIGHT = 2;
+	
+	public static final int PHASE_PLAY = 0;
+	public static final int PHASE_END_TURN = 1;
+	public static final int PHASE_WAIT_PLAYER = 2;
 
 	public Player[] players;
 	public int token;
 	private Map<CardType, List<Card>> board;
 	private List<Card> shipHold;
 	private List<Integer> selCards;
+	
 	private int act;
 	private int mode;
+	private int phase;
 
 	public GameEngine() {
 		this.act = 0;
 		this.mode = MODE_PLAY;
+		this.mode = PHASE_PLAY;
 
 		this.token = 0;
 		this.players = new Player[2];
@@ -56,8 +63,6 @@ public class GameEngine {
 			selCards.add(4);
 			this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_1, CardType.HUNTRESS, 1));
 			this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_2, CardType.HUNTRESS, 2));
-			this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
-			this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
 			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
 			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
 			this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
@@ -70,7 +75,6 @@ public class GameEngine {
 			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
 			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
 			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
-			this.board.get(CardType.DRAGON_STONE).add(new Card(R.drawable.dragon_stone_1_v, CardType.DRAGON_STONE, 1));
 			
 			this.shipHold.add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
 			
@@ -95,7 +99,8 @@ public class GameEngine {
 		case TouchAreas.BOARD_ID:
 			// TODO: gerer les modes avec le nextplayer
 			if (handleCardPlayed()) {
-				nextPlayer();
+				phase = PHASE_END_TURN;
+				selCards.clear();
 				return true;
 			} else {
 				return false;
@@ -106,6 +111,8 @@ public class GameEngine {
 			}
 			board.get(CardType.TREASURE).clear();
 			mode = MODE_PLAY;
+			phase = PHASE_END_TURN;
+			selCards.clear();
 			return true;
 		case TouchAreas.DRAGON_STONE_ID:
 			for (Card c : board.get(CardType.DRAGON_STONE)) {
@@ -115,6 +122,8 @@ public class GameEngine {
 			players[token].setBonus(true);
 			players[token == 0 ? 1 : 0].setBonus(false);
 			mode = MODE_PLAY;
+			phase = PHASE_END_TURN;
+			selCards.clear();
 			return true;
 		case TouchAreas.PRINCESS_ID:
 			for (Card c : board.get(CardType.PRINCESS)) {
@@ -122,6 +131,8 @@ public class GameEngine {
 			}
 			board.get(CardType.PRINCESS).clear();
 			mode = MODE_PLAY;
+			phase = PHASE_END_TURN;
+			selCards.clear();
 			return true;
 		case TouchAreas.TROLL_ID:
 			for (Card c : board.get(CardType.TROLL)) {
@@ -129,6 +140,8 @@ public class GameEngine {
 			}
 			board.get(CardType.TROLL).clear();
 			mode = MODE_PLAY;
+			phase = PHASE_END_TURN;
+			selCards.clear();
 			return true;
 		default:
 			return false;
@@ -299,14 +312,24 @@ public class GameEngine {
 	public int getMode() {
 		return mode;
 	}
+	
+	public int getPhase() {
+		return phase;
+	}
+	
+	public void setPhase(int phase) {
+		this.phase = phase;
+	}
 
+	// TODO: 1) cas des 3 actes + un dernier tour pour l'autre joueur
+	//		 2) cas d'un joueur ne pouvant plus remplir sa main + un dernier tour pour l'autre joueur
+	//		 3) ajouter 3pt a celui qui a le dragon
 	public boolean isEndOfGame() {
 		return act == 3;
 	}
 
 	public void nextPlayer() {
 		token = token == 0 ? 1 : 0;
-		selCards.clear();
 	}
 	
 	public Player getPlayer(){

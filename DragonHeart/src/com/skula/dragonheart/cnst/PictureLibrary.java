@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 
 import com.skula.dragonheart.R;
 
+// TODO: supprimer les images inutiles
+// TODO: faire image fond
 public class PictureLibrary {
 	private Map<Integer, Bitmap> map;
 
@@ -22,9 +24,6 @@ public class PictureLibrary {
 		this.map.put(R.drawable.card_sel_v, BitmapFactory.decodeResource(res, R.drawable.card_sel_v));
 		this.map.put(R.drawable.huntress_1, BitmapFactory.decodeResource(res, R.drawable.huntress_1));
 		this.map.put(R.drawable.huntress_2, BitmapFactory.decodeResource(res, R.drawable.huntress_2));
-		this.map.put(R.drawable.huntress_3, BitmapFactory.decodeResource(res, R.drawable.huntress_3));
-		this.map.put(R.drawable.huntress_4, BitmapFactory.decodeResource(res, R.drawable.huntress_4));
-		this.map.put(R.drawable.dragon_fire_1, BitmapFactory.decodeResource(res, R.drawable.dragon_fire_1));
 		this.map.put(R.drawable.dragon_fire_2, BitmapFactory.decodeResource(res, R.drawable.dragon_fire_2));
 		this.map.put(R.drawable.dragon_fire_3, BitmapFactory.decodeResource(res, R.drawable.dragon_fire_3));
 		this.map.put(R.drawable.dragon_fire_4, BitmapFactory.decodeResource(res, R.drawable.dragon_fire_4));
@@ -34,30 +33,20 @@ public class PictureLibrary {
 		this.map.put(R.drawable.treasure_4, BitmapFactory.decodeResource(res, R.drawable.treasure_4));
 		this.map.put(R.drawable.princess_1, BitmapFactory.decodeResource(res, R.drawable.princess_1));
 		this.map.put(R.drawable.princess_2, BitmapFactory.decodeResource(res, R.drawable.princess_2));
-		this.map.put(R.drawable.princess_3, BitmapFactory.decodeResource(res, R.drawable.princess_3));
-		this.map.put(R.drawable.princess_4, BitmapFactory.decodeResource(res, R.drawable.princess_4));
-		this.map.put(R.drawable.dragon_stone_1_h, BitmapFactory.decodeResource(res, R.drawable.dragon_stone_1_h));
 		this.map.put(R.drawable.dragon_stone_2_h, BitmapFactory.decodeResource(res, R.drawable.dragon_stone_2_h));
-		this.map.put(R.drawable.dragon_stone_3_h, BitmapFactory.decodeResource(res, R.drawable.dragon_stone_3_h));
-		this.map.put(R.drawable.dragon_stone_4_h, BitmapFactory.decodeResource(res, R.drawable.dragon_stone_4_h));
-		this.map.put(R.drawable.dragon_stone_1_v, BitmapFactory.decodeResource(res, R.drawable.dragon_stone_1_v));
 		this.map.put(R.drawable.dragon_stone_2_v, BitmapFactory.decodeResource(res, R.drawable.dragon_stone_2_v));
-		this.map.put(R.drawable.dragon_stone_3_v, BitmapFactory.decodeResource(res, R.drawable.dragon_stone_3_v));
-		this.map.put(R.drawable.dragon_stone_4_v, BitmapFactory.decodeResource(res, R.drawable.dragon_stone_4_v));
 		this.map.put(R.drawable.dwarf_1, BitmapFactory.decodeResource(res, R.drawable.dwarf_1));
 		this.map.put(R.drawable.dwarf_2, BitmapFactory.decodeResource(res, R.drawable.dwarf_2));
 		this.map.put(R.drawable.dwarf_3, BitmapFactory.decodeResource(res, R.drawable.dwarf_3));
-		this.map.put(R.drawable.dwarf_4, BitmapFactory.decodeResource(res, R.drawable.dwarf_4));
 		this.map.put(R.drawable.troll_1, BitmapFactory.decodeResource(res, R.drawable.troll_1));
 		this.map.put(R.drawable.troll_2, BitmapFactory.decodeResource(res, R.drawable.troll_2));
 		this.map.put(R.drawable.troll_3, BitmapFactory.decodeResource(res, R.drawable.troll_3));
-		this.map.put(R.drawable.troll_4, BitmapFactory.decodeResource(res, R.drawable.troll_4));
 		this.map.put(R.drawable.knight_1, BitmapFactory.decodeResource(res, R.drawable.knight_1));
 		this.map.put(R.drawable.knight_2, BitmapFactory.decodeResource(res, R.drawable.knight_2));
-		this.map.put(R.drawable.knight_3, BitmapFactory.decodeResource(res, R.drawable.knight_3));
-		this.map.put(R.drawable.knight_4, BitmapFactory.decodeResource(res, R.drawable.knight_4));
 		this.map.put(R.drawable.ship, BitmapFactory.decodeResource(res, R.drawable.ship));
-		//this.map.put(R.drawable.bonus, BitmapFactory.decodeResource(res, R.drawable.bonus));
+		this.map.put(R.drawable.deck_green, BitmapFactory.decodeResource(res, R.drawable.deck_green));
+		this.map.put(R.drawable.deck_red, BitmapFactory.decodeResource(res, R.drawable.deck_red));
+		this.map.put(R.drawable.bonus, BitmapFactory.decodeResource(res, R.drawable.bonus));
 	}
 
 	public Bitmap get(int id) {
