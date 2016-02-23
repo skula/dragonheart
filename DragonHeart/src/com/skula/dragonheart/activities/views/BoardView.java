@@ -37,8 +37,8 @@ public class BoardView extends View {
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			x0 = x;
-			y0 = y;
+			int area = getArea(x, y);
+			gEngine.process(area);
 			break;
 		case MotionEvent.ACTION_MOVE:
 			x0 = x;
@@ -49,7 +49,7 @@ public class BoardView extends View {
 			y0 = 0;
 			break;
 		}
-		//invalidate();
+		invalidate();
 		return true;
 	}
 

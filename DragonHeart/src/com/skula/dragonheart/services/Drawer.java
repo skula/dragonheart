@@ -40,7 +40,7 @@ public class Drawer {
 		drawBoard(c);
 		drawHand(c);
 		drawCardsSel(c);
-		 drawTouchAreas(c);
+		// drawTouchAreas(c);
 	}
 
 	// TODO: faire un switch sur les type de cartes. afficher la derniere carte pour les emplacements uniques
@@ -101,13 +101,13 @@ public class Drawer {
 
 	private void drawHand(Canvas c) {
 		Player p = gEngine.getPlayer();
-		drawPict(c, p.getCard(0).getDrawableId(), DrawAreas.CARD_1);
-		drawPict(c, p.getCard(1).getDrawableId(), DrawAreas.CARD_2);
-		drawPict(c, p.getCard(2).getDrawableId(), DrawAreas.CARD_3);
-		drawPict(c, p.getCard(3).getDrawableId(), DrawAreas.CARD_4);
-		drawPict(c, p.getCard(4).getDrawableId(), DrawAreas.CARD_5);
+		drawPict(c, p.getCard2(0).getDrawableId(), DrawAreas.CARD_1);
+		drawPict(c, p.getCard2(1).getDrawableId(), DrawAreas.CARD_2);
+		drawPict(c, p.getCard2(2).getDrawableId(), DrawAreas.CARD_3);
+		drawPict(c, p.getCard2(3).getDrawableId(), DrawAreas.CARD_4);
+		drawPict(c, p.getCard2(4).getDrawableId(), DrawAreas.CARD_5);
 		if (p.hasBonus()) {
-			drawPict(c, p.getCard(5).getDrawableId(), DrawAreas.CARD_6);
+			drawPict(c, p.getCard2(5).getDrawableId(), DrawAreas.CARD_6);
 		}
 	}
 

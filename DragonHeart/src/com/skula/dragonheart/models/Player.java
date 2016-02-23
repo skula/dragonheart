@@ -1,6 +1,5 @@
 package com.skula.dragonheart.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -10,26 +9,24 @@ public class Player {
 	private List<Card> deck;
 	private Card[] hand;
 
-	public Player(int id, List<Card> deck) {
+	public Player(int id) {
 		this.id = id;
 		this.score = 0;
 		this.bonus = false;
-		this.deck = new ArrayList<Card>();
-		this.deck.addAll(deck);
+		this.deck  = Card.getCards();
 		this.hand = new Card[6];
 		for (int i = 0; i < 5; i++) {
 			this.hand[i] = this.deck.remove(0);
 		}
 	}
 
-	public Card getCard(int i) {
+	public Card getCard2(int i) {
+		return hand[i];
+	}
+	
+	public Card removeCard(int i) {
 		Card c = hand[i];
-
-		if (deck.size() > 0) {
-			hand[i] = deck.get(0);
-		} else {
-			hand[i] = null;
-		}
+		hand[i] = deck.remove(0);
 		return c;
 	}
 

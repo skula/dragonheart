@@ -31,9 +31,8 @@ public class GameEngine {
 		this.token = 0;
 		this.players = new Player[2];
 
-		List<Card> deck = Card.getCards();
-		this.players[0] = new Player(0, deck);
-		this.players[1] = new Player(1, deck);
+		this.players[0] = new Player(0);
+		this.players[1] = new Player(1);
 
 		this.board = new HashMap<CardType, List<Card>>();
 		this.board.put(CardType.HUNTRESS, new ArrayList<Card>());
@@ -51,31 +50,32 @@ public class GameEngine {
 		this.selCards = new ArrayList<Integer>();
 		
 		// bouchon:
-		//selCards.add(1);
-		//selCards.add(3);
-		//selCards.add(4);
-		
-		this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_1, CardType.HUNTRESS, 1));
-		this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_2, CardType.HUNTRESS, 2));
-		this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
-		this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
-		this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
-		this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
-		this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
-		this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
-		this.board.get(CardType.PRINCESS).add(new Card(R.drawable.princess_1, CardType.PRINCESS, 1));
-		this.board.get(CardType.PRINCESS).add(new Card(R.drawable.princess_1, CardType.PRINCESS, 1));
-		this.board.get(CardType.KNIGHT).add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
-		this.board.get(CardType.TROLL).add(new Card(R.drawable.troll_1, CardType.TROLL, 1));
-		this.board.get(CardType.TROLL).add(new Card(R.drawable.troll_1, CardType.TROLL, 1));
-		this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
-		this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
-		this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
-		this.board.get(CardType.DRAGON_STONE).add(new Card(R.drawable.dragon_stone_1_v, CardType.DRAGON_STONE, 1));
-		
-		this.shipHold.add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
-		
-		players[token].setBonus(true);
+		if(false){
+			selCards.add(1);
+			selCards.add(3);
+			selCards.add(4);
+			this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_1, CardType.HUNTRESS, 1));
+			this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_2, CardType.HUNTRESS, 2));
+			this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
+			this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_1, CardType.DRAGON_FIRE, 1));
+			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
+			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
+			this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
+			this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
+			this.board.get(CardType.PRINCESS).add(new Card(R.drawable.princess_1, CardType.PRINCESS, 1));
+			this.board.get(CardType.PRINCESS).add(new Card(R.drawable.princess_1, CardType.PRINCESS, 1));
+			this.board.get(CardType.KNIGHT).add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
+			this.board.get(CardType.TROLL).add(new Card(R.drawable.troll_1, CardType.TROLL, 1));
+			this.board.get(CardType.TROLL).add(new Card(R.drawable.troll_1, CardType.TROLL, 1));
+			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
+			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
+			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
+			this.board.get(CardType.DRAGON_STONE).add(new Card(R.drawable.dragon_stone_1_v, CardType.DRAGON_STONE, 1));
+			
+			this.shipHold.add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
+			
+			players[token].setBonus(true);
+		}
 	}
 
 	public boolean process(int areaId) {
@@ -137,7 +137,7 @@ public class GameEngine {
 
 	private boolean handleCardSelected(int id) {
 		for (Integer i : selCards) {
-			if (players[token].getCard(i).getType() != players[token].getCard(id).getType()) {
+			if (players[token].getCard2(i).getType() != players[token].getCard2(id).getType()) {
 				return false;
 			}
 		}
@@ -157,7 +157,7 @@ public class GameEngine {
 		}
 
 		int tmp = 0;
-		switch (players[token].getCard(selCards.get(0)).getType()) {
+		switch (players[token].getCard2(selCards.get(0)).getType()) {
 		case HUNTRESS:
 			tmp = board.get(CardType.HUNTRESS).size() + selCards.size();
 			if (tmp > 3) {
@@ -169,8 +169,7 @@ public class GameEngine {
 				}
 				board.get(CardType.HUNTRESS).clear();
 				for (Integer i : selCards) {
-					shipHold.add(players[token].getCard(i));
-					players[token].pickCard(i);
+					shipHold.add(players[token].removeCard(i));
 				}
 
 				// on prend les dragons de feu
@@ -181,16 +180,14 @@ public class GameEngine {
 				return true;
 			} else {
 				for (Integer i : selCards) {
-					board.get(CardType.HUNTRESS).add(players[token].getCard(i));
-					players[token].pickCard(i);
+					board.get(CardType.HUNTRESS).add(players[token].removeCard(i));
 				}
 				return true;
 			}
 		case DRAGON_FIRE:
 			// on ajout les dragon
 			for (Integer i : selCards) {
-				board.get(CardType.DRAGON_FIRE).add(players[token].getCard(i));
-				players[token].pickCard(i);
+				board.get(CardType.DRAGON_FIRE).add(players[token].removeCard(i));
 			}
 			// on prend les trésors
 			for (Card c : board.get(CardType.TREASURE)) {
@@ -201,22 +198,19 @@ public class GameEngine {
 		case TREASURE:
 			// on ajout les tresors
 			for (Integer i : selCards) {
-				board.get(CardType.TREASURE).add(players[token].getCard(i));
-				players[token].pickCard(i);
+				board.get(CardType.TREASURE).add(players[token].removeCard(i));
 			}
 			return true;
 		case PRINCESS:
 			for (Integer i : selCards) {
-				board.get(CardType.PRINCESS).add(players[token].getCard(i));
-				players[token].pickCard(i);
+				board.get(CardType.PRINCESS).add(players[token].removeCard(i));
 			}
 			mode = MODE_CHOOSE_PRINCESS;
 			return true;
 		case DRAGON_STONE:
 			// on ajout les dragons de pierre
 			for (Integer i : selCards) {
-				board.get(CardType.DRAGON_STONE).add(players[token].getCard(i));
-				players[token].pickCard(i);
+				board.get(CardType.DRAGON_STONE).add(players[token].removeCard(i));
 			}
 			return true;
 		case DWARF:
@@ -231,23 +225,20 @@ public class GameEngine {
 				board.get(CardType.DWARF).clear();
 
 				for (Integer i : selCards) {
-					players[token].addPoints(players[token].getCard(i).getPoints());
-					players[token].pickCard(i);
+					players[token].addPoints(players[token].removeCard(i).getPoints());
 				}
 				return true;
 			} else {
 				// on ajoute les nains
 				for (Integer i : selCards) {
-					board.get(CardType.DWARF).add(players[token].getCard(i));
-					players[token].pickCard(i);
+					board.get(CardType.DWARF).add(players[token].removeCard(i));
 				}
 				return true;
 			}
 		case TROLL:
 			// on ajout les troll
 			for (Integer i : selCards) {
-				board.get(CardType.TROLL).add(players[token].getCard(i));
-				players[token].pickCard(i);
+				board.get(CardType.TROLL).add(players[token].removeCard(i));
 			}
 			// on prend les putes a cheval
 			for (Card c : board.get(CardType.PRINCESS)) {
@@ -266,16 +257,14 @@ public class GameEngine {
 				}
 				board.get(CardType.KNIGHT).clear();
 				for (Integer i : selCards) {
-					shipHold.add(players[token].getCard(i));
-					players[token].pickCard(i);
+					shipHold.add(players[token].removeCard(i));
 				}
 
 				mode = MODE_CHOOSE_KNIGHT;
 				return true;
 			} else {
 				for (Integer i : selCards) {
-					board.get(CardType.KNIGHT).add(players[token].getCard(i));
-					players[token].pickCard(i);
+					board.get(CardType.KNIGHT).add(players[token].removeCard(i));
 				}
 				return true;
 			}
@@ -299,8 +288,7 @@ public class GameEngine {
 			} else {
 				// on ajoute les navires
 				for (Integer i : selCards) {
-					board.get(CardType.SHIP).add(players[token].getCard(i));
-					players[token].pickCard(i);
+					board.get(CardType.SHIP).add(players[token].removeCard(i));
 				}
 				return true;
 			}
