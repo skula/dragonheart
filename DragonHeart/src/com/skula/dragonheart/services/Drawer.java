@@ -80,6 +80,7 @@ public class Drawer {
 
 	// TODO: afficher fond
 	private void drawBoard(Canvas c) {
+		drawPict(c, R.drawable.parchemin, new Rect(0,0,1350,756));
 		drawPict(c, R.drawable.board, DrawAreas.BOARD);
 		Map<CardType, List<Card>> board = gEngine.getBoard();
 		Point p = null;
@@ -126,13 +127,13 @@ public class Drawer {
 
 	private void drawHand(Canvas c) {
 		Player p = gEngine.getPlayer();
-		drawPict(c, p.getCard2(0).getDrawableId(), DrawAreas.CARD_1);
-		drawPict(c, p.getCard2(1).getDrawableId(), DrawAreas.CARD_2);
-		drawPict(c, p.getCard2(2).getDrawableId(), DrawAreas.CARD_3);
-		drawPict(c, p.getCard2(3).getDrawableId(), DrawAreas.CARD_4);
-		drawPict(c, p.getCard2(4).getDrawableId(), DrawAreas.CARD_5);
+		drawPict(c, p.getCard(0).getDrawableId(), DrawAreas.CARD_1);
+		drawPict(c, p.getCard(1).getDrawableId(), DrawAreas.CARD_2);
+		drawPict(c, p.getCard(2).getDrawableId(), DrawAreas.CARD_3);
+		drawPict(c, p.getCard(3).getDrawableId(), DrawAreas.CARD_4);
+		drawPict(c, p.getCard(4).getDrawableId(), DrawAreas.CARD_5);
 		if (p.hasBonus()) {
-			drawPict(c, p.getCard2(5).getDrawableId(), DrawAreas.CARD_6);
+			drawPict(c, p.getCard(5).getDrawableId(), DrawAreas.CARD_6);
 		}
 	}
 
@@ -173,6 +174,12 @@ public class Drawer {
 		Bitmap bmp = lib.get(id);
 		Rect src = new Rect(0, 0, bmp.getWidth(), bmp.getHeight());
 		Rect dest = new Rect(0 + p.getX(), 0 + p.getY(), bmp.getWidth() + p.getX(), bmp.getHeight() + p.getY());
+		c.drawBitmap(bmp, src, dest, paint);
+	}
+	
+	private void drawPict(Canvas c, int id, Rect dest) {
+		Bitmap bmp = lib.get(id);
+		Rect src = new Rect(0, 0, bmp.getWidth(), bmp.getHeight());
 		c.drawBitmap(bmp, src, dest, paint);
 	}
 }

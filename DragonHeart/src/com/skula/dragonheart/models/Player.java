@@ -20,7 +20,7 @@ public class Player {
 		}
 	}
 
-	public Card getCard2(int i) {
+	public Card getCard(int i) {
 		return hand[i];
 	}
 	

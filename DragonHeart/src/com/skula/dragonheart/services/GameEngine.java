@@ -98,8 +98,14 @@ public class GameEngine {
 			return handleCardSelected(5);
 		case TouchAreas.BOARD_ID:
 			// TODO: gerer les modes avec le nextplayer
+			if (selCards.isEmpty()) {
+				return false;
+			}
+			CardType ct = players[token].getCard(selCards.get(0)).getType();
 			if (handleCardPlayed()) {
-				phase = PHASE_END_TURN;
+				if(mode == MODE_PLAY){
+					phase = PHASE_END_TURN;					
+				}
 				selCards.clear();
 				return true;
 			} else {
@@ -150,7 +156,7 @@ public class GameEngine {
 
 	private boolean handleCardSelected(int id) {
 		for (Integer i : selCards) {
-			if (players[token].getCard2(i).getType() != players[token].getCard2(id).getType()) {
+			if (players[token].getCard(i).getType() != players[token].getCard(id).getType()) {
 				return false;
 			}
 		}
@@ -165,12 +171,9 @@ public class GameEngine {
 	}
 
 	private boolean handleCardPlayed() {
-		if (selCards.isEmpty()) {
-			return false;
-		}
 
 		int tmp = 0;
-		switch (players[token].getCard2(selCards.get(0)).getType()) {
+		switch (players[token].getCard(selCards.get(0)).getType()) {
 		case HUNTRESS:
 			tmp = board.get(CardType.HUNTRESS).size() + selCards.size();
 			if (tmp > 3) {
