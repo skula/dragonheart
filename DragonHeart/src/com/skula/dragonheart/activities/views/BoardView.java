@@ -82,6 +82,9 @@ public class BoardView extends View {
 			if (TouchAreas.CARD_5.contains(x, y)) {
 				return TouchAreas.CARD_5_ID;
 			}
+			if (TouchAreas.CARD_6.contains(x, y)) {
+				return TouchAreas.CARD_6_ID;
+			}
 			if (TouchAreas.BOARD.contains(x, y)) {
 				return TouchAreas.BOARD_ID;
 			}

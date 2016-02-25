@@ -69,12 +69,18 @@ public class Drawer {
 		drawPict(c, R.drawable.deck_red, new Point(10, 595));
 		c.drawText(gEngine.players[1].getCardsLeft() + "", 60, 675, paint);
 		// 2) points (pour le joueur token uniquemen)
+		paint.setColor(Color.DKGRAY);
+		if(gEngine.getToken() == 0){
+			c.drawText(gEngine.players[0].getScore() + "", 200, 540, paint);
+		}else{
+			c.drawText(gEngine.players[1].getScore() + "",200, 675, paint);
+		}
 		// 3) le dragon (si un joueur l'a)
 		if (gEngine.players[0].hasBonus()) {
-			drawPict(c, R.drawable.bonus, new Point(200, 460));
+			drawPict(c, R.drawable.bonus, new Point(280, 480));
 		}
 		if (gEngine.players[1].hasBonus()) {
-			drawPict(c, R.drawable.bonus, new Point(200, 595));
+			drawPict(c, R.drawable.bonus, new Point(280, 615));
 		}
 	}
 
@@ -105,6 +111,10 @@ public class Drawer {
 		for (Card sh : gEngine.getShipHold()) {
 			drawPict(c, sh.getDrawableId(), DrawAreas.SHIP_HOLD);
 		}
+
+		paint.setTextSize(50f);
+		paint.setColor(Color.WHITE);
+		c.drawText("x " + gEngine.getAct() + "/3",500, 300, paint);
 	}
 
 	private void drawTouchAreas(Canvas c) {

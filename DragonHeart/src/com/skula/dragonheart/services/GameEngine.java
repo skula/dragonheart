@@ -350,4 +350,12 @@ public class GameEngine {
 	public List<Card> getShipHold() {
 		return shipHold;
 	}
+
+	public int getToken() {
+		return token;
+	}
+	
+	public int getAct() {
+		return act;
+	}
 }

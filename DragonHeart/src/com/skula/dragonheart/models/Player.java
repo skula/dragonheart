@@ -30,6 +30,7 @@ public class Player {
 		return c;
 	}
 
+	// TODO: si un joueur perd le bonus: remettre la 6em cartes dans son deck
 	public void setBonus(boolean bonus) {
 		this.bonus = bonus;
 		if (bonus == true) {
