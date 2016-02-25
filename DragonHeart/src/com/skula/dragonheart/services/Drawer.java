@@ -37,20 +37,20 @@ public class Drawer {
 	}
 
 	public void draw(Canvas c) {
-		switch (gEngine.getPhase()) {
-		case GameEngine.PHASE_PLAY:
+		switch (gEngine.getTurnPhase()) {
+		case GameEngine.TURNPHASE_PLAY:
 			drawBoard(c);
 			drawScore(c);
 			drawHand(c);
 			drawCardsSel(c);
 			break;
-		case GameEngine.PHASE_END_TURN:
+		case GameEngine.TURNPHASE_END_TURN:
 			drawBoard(c);
 			drawScore(c);
 			drawHand(c);
 			drawCardsSel(c);
 			break;
-		case GameEngine.PHASE_WAIT_PLAYER:
+		case GameEngine.TURNPHASE_WAIT_PLAYER:
 			drawBoard(c);
 			paint.setTextSize(40f);
 			c.drawText("En attente du joueur suivant", 150, 600, paint);

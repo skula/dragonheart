@@ -24,7 +24,10 @@ public class Player {
 		return hand[i];
 	}
 	
-	public Card removeCard(int i) {
+	public Card removeCard2(int i) {
+		if(deck.isEmpty()){
+			return null;
+		}
 		Card c = hand[i];
 		hand[i] = deck.remove(0);
 		return c;
@@ -40,8 +43,12 @@ public class Player {
 		}
 	}
 
-	public void pickCard(int i) {
+	public boolean pickCard(int i) {
+		if(deck.isEmpty()){
+			return false;
+		}
 		hand[i] = deck.remove(0);
+		return true;
 	}
 
 	public int getCardsLeft() {

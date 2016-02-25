@@ -15,25 +15,31 @@ public class GameEngine {
 	public static final int MODE_PLAY = 0;
 	public static final int MODE_CHOOSE_PRINCESS = 1;
 	public static final int MODE_CHOOSE_KNIGHT = 2;
-	
-	public static final int PHASE_PLAY = 0;
-	public static final int PHASE_END_TURN = 1;
-	public static final int PHASE_WAIT_PLAYER = 2;
+
+	public static final int TURNPHASE_PLAY = 0;
+	public static final int TURNPHASE_END_TURN = 1;
+	public static final int TURNPHASE_WAIT_PLAYER = 2;
+
+	public static final int GAMEPHASE_INGAME = 2;
+	public static final int GAMEPHASE_LAST_TURN = 2;
+	public static final int GAMEPHASE_END = 2;
 
 	public Player[] players;
 	public int token;
 	private Map<CardType, List<Card>> board;
 	private List<Card> shipHold;
 	private List<Integer> selCards;
-	
+
 	private int act;
 	private int mode;
-	private int phase;
+	private int turnPhase;
+	private int gamePhase;
 
 	public GameEngine() {
 		this.act = 0;
 		this.mode = MODE_PLAY;
-		this.mode = PHASE_PLAY;
+		this.turnPhase = TURNPHASE_PLAY;
+		this.gamePhase = GAMEPHASE_INGAME;
 
 		this.token = 0;
 		this.players = new Player[2];
@@ -55,9 +61,9 @@ public class GameEngine {
 		this.shipHold = new ArrayList<Card>();
 
 		this.selCards = new ArrayList<Integer>();
-		
+
 		// bouchon:
-		if(false){
+		if (false) {
 			selCards.add(1);
 			selCards.add(3);
 			selCards.add(4);
@@ -75,9 +81,9 @@ public class GameEngine {
 			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
 			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
 			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
-			
+
 			this.shipHold.add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
-			
+
 			players[token].setBonus(true);
 		}
 	}
@@ -103,8 +109,8 @@ public class GameEngine {
 			}
 			CardType ct = players[token].getCard(selCards.get(0)).getType();
 			if (handleCardPlayed()) {
-				if(mode == MODE_PLAY){
-					phase = PHASE_END_TURN;					
+				if (mode == MODE_PLAY) {
+					turnPhase = TURNPHASE_END_TURN;
 				}
 				selCards.clear();
 				return true;
@@ -117,7 +123,7 @@ public class GameEngine {
 			}
 			board.get(CardType.TREASURE).clear();
 			mode = MODE_PLAY;
-			phase = PHASE_END_TURN;
+			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
 			return true;
 		case TouchAreas.DRAGON_STONE_ID:
@@ -128,7 +134,7 @@ public class GameEngine {
 			players[token].setBonus(true);
 			players[token == 0 ? 1 : 0].setBonus(false);
 			mode = MODE_PLAY;
-			phase = PHASE_END_TURN;
+			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
 			return true;
 		case TouchAreas.PRINCESS_ID:
@@ -137,7 +143,7 @@ public class GameEngine {
 			}
 			board.get(CardType.PRINCESS).clear();
 			mode = MODE_PLAY;
-			phase = PHASE_END_TURN;
+			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
 			return true;
 		case TouchAreas.TROLL_ID:
@@ -146,7 +152,7 @@ public class GameEngine {
 			}
 			board.get(CardType.TROLL).clear();
 			mode = MODE_PLAY;
-			phase = PHASE_END_TURN;
+			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
 			return true;
 		default:
@@ -185,7 +191,12 @@ public class GameEngine {
 				}
 				board.get(CardType.HUNTRESS).clear();
 				for (Integer i : selCards) {
-					shipHold.add(players[token].removeCard(i));
+					Card c = players[token].removeCard2(i);
+					if (c == null) {
+						gamePhase = GAMEPHASE_LAST_TURN;
+					} else {
+						shipHold.add(c);
+					}
 				}
 
 				// on prend les dragons de feu
@@ -196,14 +207,24 @@ public class GameEngine {
 				return true;
 			} else {
 				for (Integer i : selCards) {
-					board.get(CardType.HUNTRESS).add(players[token].removeCard(i));
+					Card c = players[token].removeCard2(i);
+					if (c == null) {
+						gamePhase = GAMEPHASE_LAST_TURN;
+					} else {
+						board.get(CardType.HUNTRESS).add(c);
+					}
 				}
 				return true;
 			}
 		case DRAGON_FIRE:
 			// on ajout les dragon
 			for (Integer i : selCards) {
-				board.get(CardType.DRAGON_FIRE).add(players[token].removeCard(i));
+				Card c = players[token].removeCard2(i);
+				if (c == null) {
+					gamePhase = GAMEPHASE_LAST_TURN;
+				} else {
+					board.get(CardType.DRAGON_FIRE).add(c);
+				}
 			}
 			// on prend les trésors
 			for (Card c : board.get(CardType.TREASURE)) {
@@ -214,19 +235,34 @@ public class GameEngine {
 		case TREASURE:
 			// on ajout les tresors
 			for (Integer i : selCards) {
-				board.get(CardType.TREASURE).add(players[token].removeCard(i));
+				Card c = players[token].removeCard2(i);
+				if (c == null) {
+					gamePhase = GAMEPHASE_LAST_TURN;
+				} else {
+					board.get(CardType.TREASURE).add(c);
+				}
 			}
 			return true;
 		case PRINCESS:
 			for (Integer i : selCards) {
-				board.get(CardType.PRINCESS).add(players[token].removeCard(i));
+				Card c = players[token].removeCard2(i);
+				if (c == null) {
+					gamePhase = GAMEPHASE_LAST_TURN;
+				} else {
+					board.get(CardType.PRINCESS).add(c);
+				}
 			}
 			mode = MODE_CHOOSE_PRINCESS;
 			return true;
 		case DRAGON_STONE:
 			// on ajout les dragons de pierre
 			for (Integer i : selCards) {
-				board.get(CardType.DRAGON_STONE).add(players[token].removeCard(i));
+				Card c = players[token].removeCard2(i);
+				if (c == null) {
+					gamePhase = GAMEPHASE_LAST_TURN;
+				} else {
+					board.get(CardType.DRAGON_STONE).add(c);
+				}
 			}
 			return true;
 		case DWARF:
@@ -241,20 +277,35 @@ public class GameEngine {
 				board.get(CardType.DWARF).clear();
 
 				for (Integer i : selCards) {
-					players[token].addPoints(players[token].removeCard(i).getPoints());
+					Card c = players[token].removeCard2(i);
+					if (c == null) {
+						gamePhase = GAMEPHASE_LAST_TURN;
+					} else {
+						players[token].addPoints(c.getPoints());
+					}
 				}
 				return true;
 			} else {
 				// on ajoute les nains
 				for (Integer i : selCards) {
-					board.get(CardType.DWARF).add(players[token].removeCard(i));
+					Card c = players[token].removeCard2(i);
+					if (c == null) {
+						gamePhase = GAMEPHASE_LAST_TURN;
+					} else {
+						board.get(CardType.DWARF).add(c);
+					}
 				}
 				return true;
 			}
 		case TROLL:
 			// on ajout les troll
 			for (Integer i : selCards) {
-				board.get(CardType.TROLL).add(players[token].removeCard(i));
+				Card c = players[token].removeCard2(i);
+				if (c == null) {
+					gamePhase = GAMEPHASE_LAST_TURN;
+				} else {
+					board.get(CardType.TROLL).add(c);
+				}
 			}
 			// on prend les putes a cheval
 			for (Card c : board.get(CardType.PRINCESS)) {
@@ -273,14 +324,24 @@ public class GameEngine {
 				}
 				board.get(CardType.KNIGHT).clear();
 				for (Integer i : selCards) {
-					shipHold.add(players[token].removeCard(i));
+					Card c = players[token].removeCard2(i);
+					if (c == null) {
+						gamePhase = GAMEPHASE_LAST_TURN;
+					} else {
+						shipHold.add(c);
+					}
 				}
 
 				mode = MODE_CHOOSE_KNIGHT;
 				return true;
 			} else {
 				for (Integer i : selCards) {
-					board.get(CardType.KNIGHT).add(players[token].removeCard(i));
+					Card c = players[token].removeCard2(i);
+					if (c == null) {
+						gamePhase = GAMEPHASE_LAST_TURN;
+					} else {
+						board.get(CardType.KNIGHT).add(c);
+					}
 				}
 				return true;
 			}
@@ -290,7 +351,9 @@ public class GameEngine {
 				return false;
 			} else if (tmp == 3) {
 				for (Integer i : selCards) {
-					players[token].pickCard(i);
+					if (!players[token].pickCard(i)) {
+						gamePhase = GAMEPHASE_LAST_TURN;
+					}
 				}
 				board.get(CardType.SHIP).clear();
 
@@ -300,11 +363,19 @@ public class GameEngine {
 				shipHold.clear();
 
 				act++;
+				if (act == 3) {
+					gamePhase = GAMEPHASE_LAST_TURN;
+				}
 				return true;
 			} else {
 				// on ajoute les navires
 				for (Integer i : selCards) {
-					board.get(CardType.SHIP).add(players[token].removeCard(i));
+					Card c = players[token].removeCard2(i);
+					if (c == null) {
+						gamePhase = GAMEPHASE_LAST_TURN;
+					} else {
+						board.get(CardType.SHIP).add(c);
+					}
 				}
 				return true;
 			}
@@ -315,35 +386,36 @@ public class GameEngine {
 	public int getMode() {
 		return mode;
 	}
-	
-	public int getPhase() {
-		return phase;
-	}
-	
-	public void setPhase(int phase) {
-		this.phase = phase;
+
+	public int getTurnPhase() {
+		return turnPhase;
 	}
 
-	// TODO: 1) cas des 3 actes + un dernier tour pour l'autre joueur
-	//		 2) cas d'un joueur ne pouvant plus remplir sa main + un dernier tour pour l'autre joueur
-	//		 3) ajouter 3pt a celui qui a le dragon
-	public boolean isEndOfGame() {
-		return act == 3;
+	public void setTurnPhase(int phase) {
+		this.turnPhase = phase;
+	}
+
+	public int getGamePhase() {
+		return turnPhase;
+	}
+
+	public void setGamenPhase(int phase) {
+		this.gamePhase = phase;
 	}
 
 	public void nextPlayer() {
 		token = token == 0 ? 1 : 0;
 	}
-	
-	public Player getPlayer(){
+
+	public Player getPlayer() {
 		return players[token];
 	}
-	
-	public List<Integer> getSelCards(){
+
+	public List<Integer> getSelCards() {
 		return selCards;
 	}
-	
-	public Map<CardType, List<Card>> getBoard(){
+
+	public Map<CardType, List<Card>> getBoard() {
 		return board;
 	}
 
@@ -354,7 +426,7 @@ public class GameEngine {
 	public int getToken() {
 		return token;
 	}
-	
+
 	public int getAct() {
 		return act;
 	}

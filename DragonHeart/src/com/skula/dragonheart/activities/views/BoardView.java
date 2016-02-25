@@ -37,16 +37,16 @@ public class BoardView extends View {
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			switch(gEngine.getPhase()){
-			case GameEngine.PHASE_PLAY:
+			switch(gEngine.getTurnPhase()){
+			case GameEngine.TURNPHASE_PLAY:
 				int area = getArea(x, y);
 				gEngine.process(area);
 				break;
-			case GameEngine.PHASE_END_TURN:
-				gEngine.setPhase(GameEngine.PHASE_WAIT_PLAYER);
+			case GameEngine.TURNPHASE_END_TURN:
+				gEngine.setTurnPhase(GameEngine.TURNPHASE_WAIT_PLAYER);
 				break;
-			case GameEngine.PHASE_WAIT_PLAYER:
-				gEngine.setPhase(GameEngine.PHASE_PLAY);
+			case GameEngine.TURNPHASE_WAIT_PLAYER:
+				gEngine.setTurnPhase(GameEngine.TURNPHASE_PLAY);
 				gEngine.nextPlayer();
 				break;
 			}
