@@ -37,54 +37,80 @@ public class Drawer {
 	}
 
 	public void draw(Canvas c) {
-		switch (gEngine.getTurnPhase()) {
-		case GameEngine.TURNPHASE_PLAY:
-			drawBoard(c);
-			drawScore(c);
-			drawHand(c);
-			drawCardsSel(c);
+		switch(gEngine.getGamePhase()){
+		case GameEngine.GAMEPHASE_INGAME:
+			switch (gEngine.getTurnPhase()) {
+			case GameEngine.TURNPHASE_PLAY:
+				drawBoard(c);
+				drawScore(c);
+				drawHand(c);
+				drawCardsSel(c);
+				break;
+			case GameEngine.TURNPHASE_END_TURN:
+				drawBoard(c);
+				drawScore(c);
+				drawHand(c);
+				drawCardsSel(c);
+				break;
+			case GameEngine.TURNPHASE_WAIT_PLAYER:
+				drawBoard(c);
+				paint.setTextSize(40f);
+				c.drawText("En attente du joueur suivant", 150, 600, paint);
+				break;
+			}
 			break;
-		case GameEngine.TURNPHASE_END_TURN:
-			drawBoard(c);
-			drawScore(c);
-			drawHand(c);
-			drawCardsSel(c);
+		case GameEngine.GAMEPHASE_LAST_TURN:
+			switch (gEngine.getTurnPhase()) {
+			case GameEngine.TURNPHASE_PLAY:
+				drawBoard(c);
+				drawScore(c);
+				drawHand(c);
+				drawCardsSel(c);
+				break;
+			case GameEngine.TURNPHASE_END_TURN:
+				drawBoard(c);
+				drawScore(c);
+				drawHand(c);
+				drawCardsSel(c);
+				break;
+			case GameEngine.TURNPHASE_WAIT_PLAYER:
+				drawBoard(c);
+				paint.setTextSize(40f);
+				c.drawText("msg a effacer", 150, 600, paint);
+				break;
+			}
+			c.drawText("Dernier tour !!", 150, 600, paint);
 			break;
-		case GameEngine.TURNPHASE_WAIT_PLAYER:
-			drawBoard(c);
-			paint.setTextSize(40f);
-			c.drawText("En attente du joueur suivant", 150, 600, paint);
+		case GameEngine.GAMEPHASE_END:
 			break;
 		}
 		// drawTouchAreas(c);
 	}
 
 	private void drawScore(Canvas c) {
-		// TODO: afficher:
-		// 1) nombre de cartes restantes des 2 joueurs
-		drawPict(c, R.drawable.deck_green, new Point(10, 460));
 		paint.setTextSize(60f);
 		paint.setColor(Color.WHITE);
-		c.drawText(gEngine.players[0].getCardsLeft() + "", 60, 540, paint);
-		drawPict(c, R.drawable.deck_red, new Point(10, 595));
-		c.drawText(gEngine.players[1].getCardsLeft() + "", 60, 675, paint);
-		// 2) points (pour le joueur token uniquemen)
+		
+		drawPict(c, R.drawable.deck_green, DrawAreas.DECK_PLAYER_1);
+		c.drawText(gEngine.players[0].getCardsLeft() + "", DrawAreas.COUNT_CARDS_PLAYER_1.getX(), DrawAreas.COUNT_CARDS_PLAYER_1.getY(), paint);
+		drawPict(c, R.drawable.deck_red, DrawAreas.DECK_PLAYER_2);
+		c.drawText(gEngine.players[1].getCardsLeft() + "", DrawAreas.COUNT_CARDS_PLAYER_2.getX(), DrawAreas.COUNT_CARDS_PLAYER_2.getY(), paint);
+
 		paint.setColor(Color.DKGRAY);
 		if(gEngine.getToken() == 0){
-			c.drawText(gEngine.players[0].getScore() + "", 200, 540, paint);
+			c.drawText(gEngine.players[0].getScore() + "", DrawAreas.SCORE_PLAYER_1.getX(), DrawAreas.SCORE_PLAYER_1.getY(), paint);
 		}else{
-			c.drawText(gEngine.players[1].getScore() + "",200, 675, paint);
+			c.drawText(gEngine.players[1].getScore() + "", DrawAreas.SCORE_PLAYER_2.getX(), DrawAreas.SCORE_PLAYER_2.getY(), paint);
 		}
-		// 3) le dragon (si un joueur l'a)
+		
 		if (gEngine.players[0].hasBonus()) {
-			drawPict(c, R.drawable.bonus, new Point(280, 480));
+			drawPict(c, R.drawable.bonus, DrawAreas.BONUS_PLAYER_1);
 		}
 		if (gEngine.players[1].hasBonus()) {
-			drawPict(c, R.drawable.bonus, new Point(280, 615));
+			drawPict(c, R.drawable.bonus, DrawAreas.BONUS_PLAYER_2);
 		}
 	}
 
-	// TODO: afficher fond
 	private void drawBoard(Canvas c) {
 		drawPict(c, R.drawable.parchemin, new Rect(0,0,1350,756));
 		drawPict(c, R.drawable.board, DrawAreas.BOARD);
@@ -114,7 +140,7 @@ public class Drawer {
 
 		paint.setTextSize(50f);
 		paint.setColor(Color.WHITE);
-		c.drawText("x " + gEngine.getAct() + "/3",500, 300, paint);
+		c.drawText("x " + gEngine.getAct() + "/3",DrawAreas.ACTS.getX(), DrawAreas.ACTS.getY(), paint);
 	}
 
 	private void drawTouchAreas(Canvas c) {
@@ -137,13 +163,31 @@ public class Drawer {
 
 	private void drawHand(Canvas c) {
 		Player p = gEngine.getPlayer();
-		drawPict(c, p.getCard(0).getDrawableId(), DrawAreas.CARD_1);
-		drawPict(c, p.getCard(1).getDrawableId(), DrawAreas.CARD_2);
-		drawPict(c, p.getCard(2).getDrawableId(), DrawAreas.CARD_3);
-		drawPict(c, p.getCard(3).getDrawableId(), DrawAreas.CARD_4);
-		drawPict(c, p.getCard(4).getDrawableId(), DrawAreas.CARD_5);
-		if (p.hasBonus()) {
-			drawPict(c, p.getCard(5).getDrawableId(), DrawAreas.CARD_6);
+		for(int i =0; i<6; i++){
+			if(p.getCard(i)!= null){
+				switch(i){
+				case 0:
+					drawPict(c, p.getCard(0).getDrawableId(), DrawAreas.CARD_1);
+					break;
+				case 1:
+					drawPict(c, p.getCard(1).getDrawableId(), DrawAreas.CARD_2);
+					break;
+				case 2:
+					drawPict(c, p.getCard(2).getDrawableId(), DrawAreas.CARD_3);
+					break;
+				case 3:
+					drawPict(c, p.getCard(3).getDrawableId(), DrawAreas.CARD_4);
+					break;
+				case 4:
+					drawPict(c, p.getCard(4).getDrawableId(), DrawAreas.CARD_5);
+					break;
+				case 5:
+					if (p.hasBonus()) {
+						drawPict(c, p.getCard(5).getDrawableId(), DrawAreas.CARD_6);
+					}
+					break;
+				}
+			}
 		}
 	}
 

@@ -10,8 +10,6 @@ import android.graphics.BitmapFactory;
 
 import com.skula.dragonheart.R;
 
-// TODO: supprimer les images inutiles
-// TODO: faire image fond
 public class PictureLibrary {
 	private Map<Integer, Bitmap> map;
 

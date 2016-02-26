@@ -24,31 +24,42 @@ public class Player {
 		return hand[i];
 	}
 	
-	public Card removeCard2(int i) {
-		if(deck.isEmpty()){
-			return null;
-		}
+	public Card removeCard(int i) {
 		Card c = hand[i];
-		hand[i] = deck.remove(0);
+		hand[i] = null;
 		return c;
 	}
-
-	// TODO: si un joueur perd le bonus: remettre la 6em cartes dans son deck
-	public void setBonus(boolean bonus) {
-		this.bonus = bonus;
-		if (bonus == true) {
-			hand[5] = deck.remove(0);
-		} else {
-			hand[5] = null;
+	
+	// TODO: a refaire
+	public boolean fillHand(){
+		for(int i=0; i<5; i++){
+			if(hand[i] == null){
+				if(deck.isEmpty()){
+					return false;
+				}else{
+					hand[i] = this.deck.remove(0);
+				}
+			}
 		}
+		return true;
 	}
 
-	public boolean pickCard(int i) {
-		if(deck.isEmpty()){
-			return false;
+	// TODO: (a tester) si un joueur perd le bonus: remettre la 6em cartes dans son deck
+	// TODO: fin de partie quand la 6eme carte ne peut pas etre prise ???
+	public boolean setBonus(boolean bonus) {
+		this.bonus = bonus;
+		if (bonus == true) {
+			if(!deck.isEmpty()){
+				hand[5] = deck.remove(0);
+				return true;
+			}else{
+				return false;
+			}
+		} else {
+			deck.add(hand[5]);
+			hand[5] = null;
+			return true;
 		}
-		hand[i] = deck.remove(0);
-		return true;
 	}
 
 	public int getCardsLeft() {

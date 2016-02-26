@@ -20,8 +20,8 @@ public class GameEngine {
 	public static final int TURNPHASE_END_TURN = 1;
 	public static final int TURNPHASE_WAIT_PLAYER = 2;
 
-	public static final int GAMEPHASE_INGAME = 2;
-	public static final int GAMEPHASE_LAST_TURN = 2;
+	public static final int GAMEPHASE_INGAME = 0;
+	public static final int GAMEPHASE_LAST_TURN = 1;
 	public static final int GAMEPHASE_END = 2;
 
 	public Player[] players;
@@ -103,7 +103,6 @@ public class GameEngine {
 		case TouchAreas.CARD_6_ID:
 			return handleCardSelected(5);
 		case TouchAreas.BOARD_ID:
-			// TODO: gerer les modes avec le nextplayer
 			if (selCards.isEmpty()) {
 				return false;
 			}
@@ -177,7 +176,6 @@ public class GameEngine {
 	}
 
 	private boolean handleCardPlayed() {
-
 		int tmp = 0;
 		switch (players[token].getCard(selCards.get(0)).getType()) {
 		case HUNTRESS:
@@ -191,12 +189,12 @@ public class GameEngine {
 				}
 				board.get(CardType.HUNTRESS).clear();
 				for (Integer i : selCards) {
-					Card c = players[token].removeCard2(i);
-					if (c == null) {
-						gamePhase = GAMEPHASE_LAST_TURN;
-					} else {
-						shipHold.add(c);
-					}
+					shipHold.add(players[token].removeCard(i));
+				}
+				
+				// on rempli la main
+				if(!players[token].fillHand()){
+					gamePhase = GAMEPHASE_LAST_TURN;
 				}
 
 				// on prend les dragons de feu
@@ -207,25 +205,26 @@ public class GameEngine {
 				return true;
 			} else {
 				for (Integer i : selCards) {
-					Card c = players[token].removeCard2(i);
-					if (c == null) {
-						gamePhase = GAMEPHASE_LAST_TURN;
-					} else {
-						board.get(CardType.HUNTRESS).add(c);
-					}
+					board.get(CardType.HUNTRESS).add(players[token].removeCard(i));					
+				}
+				
+				// on rempli la main
+				if(!players[token].fillHand()){
+					gamePhase = GAMEPHASE_LAST_TURN;
 				}
 				return true;
 			}
 		case DRAGON_FIRE:
 			// on ajout les dragon
 			for (Integer i : selCards) {
-				Card c = players[token].removeCard2(i);
-				if (c == null) {
-					gamePhase = GAMEPHASE_LAST_TURN;
-				} else {
-					board.get(CardType.DRAGON_FIRE).add(c);
-				}
+				board.get(CardType.DRAGON_FIRE).add(players[token].removeCard(i));				
 			}
+			
+			// on rempli la main
+			if(!players[token].fillHand()){
+				gamePhase = GAMEPHASE_LAST_TURN;
+			}
+			
 			// on prend les trésors
 			for (Card c : board.get(CardType.TREASURE)) {
 				players[token].addPoints(c.getPoints());
@@ -235,34 +234,34 @@ public class GameEngine {
 		case TREASURE:
 			// on ajout les tresors
 			for (Integer i : selCards) {
-				Card c = players[token].removeCard2(i);
-				if (c == null) {
-					gamePhase = GAMEPHASE_LAST_TURN;
-				} else {
-					board.get(CardType.TREASURE).add(c);
-				}
+				board.get(CardType.TREASURE).add(players[token].removeCard(i));
+			}
+			
+			// on rempli la main
+			if(!players[token].fillHand()){
+				gamePhase = GAMEPHASE_LAST_TURN;
 			}
 			return true;
 		case PRINCESS:
 			for (Integer i : selCards) {
-				Card c = players[token].removeCard2(i);
-				if (c == null) {
-					gamePhase = GAMEPHASE_LAST_TURN;
-				} else {
-					board.get(CardType.PRINCESS).add(c);
-				}
+				board.get(CardType.PRINCESS).add(players[token].removeCard(i));
+			}
+			
+			// on rempli la main
+			if(!players[token].fillHand()){
+				gamePhase = GAMEPHASE_LAST_TURN;
 			}
 			mode = MODE_CHOOSE_PRINCESS;
 			return true;
 		case DRAGON_STONE:
 			// on ajout les dragons de pierre
 			for (Integer i : selCards) {
-				Card c = players[token].removeCard2(i);
-				if (c == null) {
-					gamePhase = GAMEPHASE_LAST_TURN;
-				} else {
-					board.get(CardType.DRAGON_STONE).add(c);
-				}
+				board.get(CardType.DRAGON_STONE).add(players[token].removeCard(i));
+			}
+			
+			// on rempli la main
+			if(!players[token].fillHand()){
+				gamePhase = GAMEPHASE_LAST_TURN;
 			}
 			return true;
 		case DWARF:
@@ -277,36 +276,38 @@ public class GameEngine {
 				board.get(CardType.DWARF).clear();
 
 				for (Integer i : selCards) {
-					Card c = players[token].removeCard2(i);
-					if (c == null) {
-						gamePhase = GAMEPHASE_LAST_TURN;
-					} else {
-						players[token].addPoints(c.getPoints());
-					}
+					Card c = players[token].removeCard(i);
+					players[token].addPoints(c.getPoints());
+				}
+				
+				// on rempli la main
+				if(!players[token].fillHand()){
+					gamePhase = GAMEPHASE_LAST_TURN;
 				}
 				return true;
 			} else {
 				// on ajoute les nains
 				for (Integer i : selCards) {
-					Card c = players[token].removeCard2(i);
-					if (c == null) {
-						gamePhase = GAMEPHASE_LAST_TURN;
-					} else {
-						board.get(CardType.DWARF).add(c);
-					}
+					board.get(CardType.DWARF).add(players[token].removeCard(i));					
+				}
+				
+				// on rempli la main
+				if(!players[token].fillHand()){
+					gamePhase = GAMEPHASE_LAST_TURN;
 				}
 				return true;
 			}
 		case TROLL:
 			// on ajout les troll
 			for (Integer i : selCards) {
-				Card c = players[token].removeCard2(i);
-				if (c == null) {
-					gamePhase = GAMEPHASE_LAST_TURN;
-				} else {
-					board.get(CardType.TROLL).add(c);
-				}
+				board.get(CardType.TROLL).add(players[token].removeCard(i));
 			}
+			
+			// on rempli la main
+			if(!players[token].fillHand()){
+				gamePhase = GAMEPHASE_LAST_TURN;
+			}
+			
 			// on prend les putes a cheval
 			for (Card c : board.get(CardType.PRINCESS)) {
 				players[token].addPoints(c.getPoints());
@@ -323,25 +324,26 @@ public class GameEngine {
 					shipHold.add(c);
 				}
 				board.get(CardType.KNIGHT).clear();
+				
 				for (Integer i : selCards) {
-					Card c = players[token].removeCard2(i);
-					if (c == null) {
-						gamePhase = GAMEPHASE_LAST_TURN;
-					} else {
-						shipHold.add(c);
-					}
+					shipHold.add(players[token].removeCard(i));
+				}
+				
+				// on rempli la main
+				if(!players[token].fillHand()){
+					gamePhase = GAMEPHASE_LAST_TURN;
 				}
 
 				mode = MODE_CHOOSE_KNIGHT;
 				return true;
 			} else {
 				for (Integer i : selCards) {
-					Card c = players[token].removeCard2(i);
-					if (c == null) {
-						gamePhase = GAMEPHASE_LAST_TURN;
-					} else {
-						board.get(CardType.KNIGHT).add(c);
-					}
+					board.get(CardType.KNIGHT).add(players[token].removeCard(i));
+				}
+				
+				// on rempli la main
+				if(!players[token].fillHand()){
+					gamePhase = GAMEPHASE_LAST_TURN;
 				}
 				return true;
 			}
@@ -351,12 +353,15 @@ public class GameEngine {
 				return false;
 			} else if (tmp == 3) {
 				for (Integer i : selCards) {
-					if (!players[token].pickCard(i)) {
-						gamePhase = GAMEPHASE_LAST_TURN;
-					}
+					players[token].removeCard(i);
 				}
 				board.get(CardType.SHIP).clear();
 
+				// on rempli la main
+				if(!players[token].fillHand()){
+					gamePhase = GAMEPHASE_LAST_TURN;
+				}
+				
 				for (Card c : shipHold) {
 					players[token].addPoints(c.getPoints());
 				}
@@ -370,12 +375,12 @@ public class GameEngine {
 			} else {
 				// on ajoute les navires
 				for (Integer i : selCards) {
-					Card c = players[token].removeCard2(i);
-					if (c == null) {
-						gamePhase = GAMEPHASE_LAST_TURN;
-					} else {
-						board.get(CardType.SHIP).add(c);
-					}
+					board.get(CardType.SHIP).add(players[token].removeCard(i));
+				}
+
+				// on rempli la main
+				if(!players[token].fillHand()){
+					gamePhase = GAMEPHASE_LAST_TURN;
 				}
 				return true;
 			}

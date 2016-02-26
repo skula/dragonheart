@@ -37,19 +37,22 @@ public class BoardView extends View {
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			switch(gEngine.getTurnPhase()){
-			case GameEngine.TURNPHASE_PLAY:
-				int area = getArea(x, y);
-				gEngine.process(area);
-				break;
-			case GameEngine.TURNPHASE_END_TURN:
-				gEngine.setTurnPhase(GameEngine.TURNPHASE_WAIT_PLAYER);
-				break;
-			case GameEngine.TURNPHASE_WAIT_PLAYER:
-				gEngine.setTurnPhase(GameEngine.TURNPHASE_PLAY);
-				gEngine.nextPlayer();
-				break;
+			if (gEngine.getGamePhase() != GameEngine.GAMEPHASE_END) {
+				switch (gEngine.getTurnPhase()) {
+				case GameEngine.TURNPHASE_PLAY:
+					int area = getArea(x, y);
+					gEngine.process(area);
+					break;
+				case GameEngine.TURNPHASE_END_TURN:
+					gEngine.setTurnPhase(GameEngine.TURNPHASE_WAIT_PLAYER);
+					break;
+				case GameEngine.TURNPHASE_WAIT_PLAYER:
+					gEngine.setTurnPhase(GameEngine.TURNPHASE_PLAY);
+					gEngine.nextPlayer();
+					break;
+				}
 			}
+			invalidate();
 			break;
 		case MotionEvent.ACTION_MOVE:
 			x0 = x;
@@ -60,7 +63,6 @@ public class BoardView extends View {
 			y0 = 0;
 			break;
 		}
-		invalidate();
 		return true;
 	}
 
