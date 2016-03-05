@@ -13,7 +13,7 @@ public class Player {
 		this.id = id;
 		this.score = 0;
 		this.bonus = false;
-		this.deck  = Card.getCards();
+		this.deck = Card.getCards();
 		this.hand = new Card[6];
 		for (int i = 0; i < 5; i++) {
 			this.hand[i] = this.deck.remove(0);
@@ -23,36 +23,47 @@ public class Player {
 	public Card getCard(int i) {
 		return hand[i];
 	}
-	
+
 	public Card removeCard(int i) {
 		Card c = hand[i];
 		hand[i] = null;
 		return c;
 	}
-	
+
 	// TODO: a refaire
-	public boolean fillHand(){
-		for(int i=0; i<5; i++){
-			if(hand[i] == null){
-				if(deck.isEmpty()){
+	public boolean fillHand() {
+		for (int i = 0; i < 5; i++) {
+			if (hand[i] == null) {
+				if (deck.isEmpty()) {
 					return false;
-				}else{
+				} else {
 					hand[i] = this.deck.remove(0);
+				}
+			}
+		}
+
+		if (hasBonus()) {
+			if (hand[5] == null) {
+				if (deck.isEmpty()) {
+					return false;
+				} else {
+					hand[5] = this.deck.remove(0);
 				}
 			}
 		}
 		return true;
 	}
 
-	// TODO: (a tester) si un joueur perd le bonus: remettre la 6em cartes dans son deck
+	// TODO: (a tester) si un joueur perd le bonus: remettre la 6em cartes dans
+	// son deck
 	// TODO: fin de partie quand la 6eme carte ne peut pas etre prise ???
 	public boolean setBonus(boolean bonus) {
 		this.bonus = bonus;
 		if (bonus == true) {
-			if(!deck.isEmpty()){
+			if (!deck.isEmpty()) {
 				hand[5] = deck.remove(0);
 				return true;
-			}else{
+			} else {
 				return false;
 			}
 		} else {

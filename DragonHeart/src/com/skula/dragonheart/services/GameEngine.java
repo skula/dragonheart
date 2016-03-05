@@ -285,16 +285,17 @@ public class GameEngine {
 					gamePhase = GAMEPHASE_LAST_TURN;
 				}
 				return true;
-			} else {
+			} else {// on rempli la main
+				boolean a= players[token].fillHand();
+				if(!a){
+					gamePhase = GAMEPHASE_LAST_TURN;
+				}
 				// on ajoute les nains
 				for (Integer i : selCards) {
 					board.get(CardType.DWARF).add(players[token].removeCard(i));					
 				}
 				
-				// on rempli la main
-				if(!players[token].fillHand()){
-					gamePhase = GAMEPHASE_LAST_TURN;
-				}
+				
 				return true;
 			}
 		case TROLL:
@@ -341,8 +342,8 @@ public class GameEngine {
 					board.get(CardType.KNIGHT).add(players[token].removeCard(i));
 				}
 				
-				// on rempli la main
-				if(!players[token].fillHand()){
+				// on rempli la main!players[token].fillHand()
+				if(false){
 					gamePhase = GAMEPHASE_LAST_TURN;
 				}
 				return true;
