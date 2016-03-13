@@ -84,7 +84,7 @@ public class Drawer {
 		case GameEngine.GAMEPHASE_END:
 			break;
 		}
-		// drawTouchAreas(c);
+		drawTouchAreas(c);
 	}
 
 	private void drawScore(Canvas c) {
