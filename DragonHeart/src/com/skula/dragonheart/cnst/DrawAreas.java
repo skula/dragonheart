@@ -4,7 +4,7 @@ import com.skula.dragonheart.enums.CardType;
 import com.skula.dragonheart.models.Point;
 
 public class DrawAreas {
-	public static final Point CARD_1 = new Point(765, 750);
+	public static final Point CARD_1 = new Point(765, 780);
 	public static final Point CARD_2 = new Point(CARD_1.getX() +187 + 5, CARD_1.getY());
 	public static final Point CARD_3 = new Point(CARD_2.getX() +187 + 5, CARD_1.getY());
 	public static final Point CARD_4 = new Point(CARD_3.getX() +187 + 5, CARD_1.getY());
@@ -25,15 +25,17 @@ public class DrawAreas {
 	public static final Point SHIP = new Point(490, 250);
 	
 	public static final Point DECK_PLAYER_1 = new Point(10, 700);
-	public static final Point DECK_PLAYER_2 = new Point(10, 900);
-	public static final Point COUNT_CARDS_PLAYER_1 = new Point(100, 800);
-	public static final Point COUNT_CARDS_PLAYER_2 = new Point(100, 1000);
-	public static final Point SCORE_PLAYER_1 = new Point(200, 600);
-	public static final Point SCORE_PLAYER_2 = new Point(200, 700);
-	public static final Point BONUS_PLAYER_1 = new Point(280, 600);
-	public static final Point BONUS_PLAYER_2 = new Point(280, 700);
+	public static final Point COUNT_CARDS_PLAYER_1 = new Point(DECK_PLAYER_1.getX()+90, DECK_PLAYER_1.getY() + 100);
+	public static final Point SCORE_PLAYER_1 = new Point(DECK_PLAYER_1.getX()+340, DECK_PLAYER_1.getY()+100);
+	public static final Point BONUS_PLAYER_1 = new Point(DECK_PLAYER_1.getX()+180, DECK_PLAYER_1.getY() + 70);
 	
-	public static final Point ACTS = new Point(500, 300);
+	public static final Point DECK_PLAYER_2 = new Point(10, 900);
+	public static final Point COUNT_CARDS_PLAYER_2 = new Point(DECK_PLAYER_2.getX()+90, DECK_PLAYER_2.getY() + 100);
+	public static final Point SCORE_PLAYER_2 = new Point(DECK_PLAYER_2.getX()+340, DECK_PLAYER_2.getY()+100);
+	public static final Point BONUS_PLAYER_2= new Point(DECK_PLAYER_2.getX()+180, DECK_PLAYER_2.getY() + 70);
+	
+	public static final Point ACTS = new Point(740, 450);
+	public static final Point LOG = new Point(1000, 740);
 	
 	public static Point get(CardType ct){
 		switch(ct){

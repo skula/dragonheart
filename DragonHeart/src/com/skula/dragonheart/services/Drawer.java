@@ -80,7 +80,7 @@ public class Drawer {
 				c.drawText("msg a effacer", 150, 600, paint);
 				break;
 			}
-			c.drawText("Dernier tour !!", 150, 600, paint);
+			c.drawText("Dernier tour !", DrawAreas.LOG.getX(), DrawAreas.LOG.getY(), paint);
 			break;
 		case GameEngine.GAMEPHASE_END:
 			break;
@@ -104,9 +104,9 @@ public class Drawer {
 
 		paint.setColor(Color.DKGRAY);
 		if(gEngine.getToken() == 0){
-			c.drawText(gEngine.players[0].getScore() + "", DrawAreas.SCORE_PLAYER_1.getX(), DrawAreas.SCORE_PLAYER_1.getY(), paint);
+			c.drawText(gEngine.players[0].getScore() + "pts", DrawAreas.SCORE_PLAYER_1.getX(), DrawAreas.SCORE_PLAYER_1.getY(), paint);
 		}else{
-			c.drawText(gEngine.players[1].getScore() + "", DrawAreas.SCORE_PLAYER_2.getX(), DrawAreas.SCORE_PLAYER_2.getY(), paint);
+			c.drawText(gEngine.players[1].getScore() + "pts", DrawAreas.SCORE_PLAYER_2.getX(), DrawAreas.SCORE_PLAYER_2.getY(), paint);
 		}
 		
 		if (gEngine.players[0].hasBonus()) {

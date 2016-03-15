@@ -63,10 +63,10 @@ public class GameEngine {
 		this.selCards = new ArrayList<Integer>();
 
 		// bouchon:
-		if (true) {
-			selCards.add(1);
-			selCards.add(3);
-			selCards.add(4);
+		if (false) {
+			//selCards.add(1);
+			//selCards.add(3);
+			//selCards.add(4);
 			this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_1, CardType.HUNTRESS, 1));
 			this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_2, CardType.HUNTRESS, 2));
 			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
