@@ -63,7 +63,7 @@ public class GameEngine {
 		this.selCards = new ArrayList<Integer>();
 
 		// bouchon:
-		if (false) {
+		if (true) {
 			selCards.add(1);
 			selCards.add(3);
 			selCards.add(4);
@@ -72,15 +72,18 @@ public class GameEngine {
 			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
 			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
 			this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
-			this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
+			//this.board.get(CardType.TREASURE).add(new Card(R.drawable.treasure_1, CardType.TREASURE, 1));
 			this.board.get(CardType.PRINCESS).add(new Card(R.drawable.princess_1, CardType.PRINCESS, 1));
-			this.board.get(CardType.PRINCESS).add(new Card(R.drawable.princess_1, CardType.PRINCESS, 1));
+			//this.board.get(CardType.PRINCESS).add(new Card(R.drawable.princess_1, CardType.PRINCESS, 1));
 			this.board.get(CardType.KNIGHT).add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
+			//this.board.get(CardType.KNIGHT).add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
 			this.board.get(CardType.TROLL).add(new Card(R.drawable.troll_1, CardType.TROLL, 1));
-			this.board.get(CardType.TROLL).add(new Card(R.drawable.troll_1, CardType.TROLL, 1));
+			//this.board.get(CardType.TROLL).add(new Card(R.drawable.troll_1, CardType.TROLL, 1));
 			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
 			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
 			this.board.get(CardType.DWARF).add(new Card(R.drawable.dwarf_1, CardType.DWARF, 1));
+			this.board.get(CardType.DRAGON_FIRE).add(new Card(R.drawable.dragon_fire_2, CardType.DRAGON_FIRE, 1));
+			this.board.get(CardType.DRAGON_STONE).add(new Card(R.drawable.dragon_stone_2_h, CardType.DRAGON_STONE, 1));
 
 			this.shipHold.add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
 

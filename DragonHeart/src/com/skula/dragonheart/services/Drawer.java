@@ -20,8 +20,8 @@ import com.skula.dragonheart.models.Player;
 import com.skula.dragonheart.models.Point;
 
 public class Drawer {
-	private static final int CARD_DX = 14;
-	private static final int CARD_DY = 14;
+	private static final int CARD_DX = 23;
+	private static final int CARD_DY = 18;
 
 	private GameEngine gEngine;
 
@@ -34,9 +34,10 @@ public class Drawer {
 		this.paint = new Paint();
 		this.lib = new PictureLibrary(res);
 		this.gEngine = gEngine;
+		
 	}
 
-	public void draw(Canvas c) {
+	public void draw(Canvas c) {		
 		switch(gEngine.getGamePhase()){
 		case GameEngine.GAMEPHASE_INGAME:
 			switch (gEngine.getTurnPhase()) {
@@ -85,6 +86,11 @@ public class Drawer {
 			break;
 		}
 		drawTouchAreas(c);
+		
+
+		//int w = lib.get(R.drawable.board).getWidth();
+		//int h = lib.get(R.drawable.board).getHeight();
+		//c.drawText("board: " + w + ", " + h, 200, 200, paint);
 	}
 
 	private void drawScore(Canvas c) {
@@ -112,7 +118,7 @@ public class Drawer {
 	}
 
 	private void drawBoard(Canvas c) {
-		drawPict(c, R.drawable.parchemin, new Rect(0,0,1350,756));
+		//drawPict(c, R.drawable.parchemin, new Rect(0,0,1350,756));
 		drawPict(c, R.drawable.board, DrawAreas.BOARD);
 		Map<CardType, List<Card>> board = gEngine.getBoard();
 		Point p = null;
