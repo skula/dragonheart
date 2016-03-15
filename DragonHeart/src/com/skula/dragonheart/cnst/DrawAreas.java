@@ -4,12 +4,12 @@ import com.skula.dragonheart.enums.CardType;
 import com.skula.dragonheart.models.Point;
 
 public class DrawAreas {
-	public static final Point CARD_1 = new Point(530, 800);
-	public static final Point CARD_2 = new Point(655, 800);
-	public static final Point CARD_3 = new Point(780, 800);
-	public static final Point CARD_4 = new Point(905, 800);
-	public static final Point CARD_5 = new Point(1030, 800);
-	public static final Point CARD_6 = new Point(1155, 800);
+	public static final Point CARD_1 = new Point(765, 750);
+	public static final Point CARD_2 = new Point(CARD_1.getX() +187 + 5, CARD_1.getY());
+	public static final Point CARD_3 = new Point(CARD_2.getX() +187 + 5, CARD_1.getY());
+	public static final Point CARD_4 = new Point(CARD_3.getX() +187 + 5, CARD_1.getY());
+	public static final Point CARD_5 = new Point(CARD_4.getX() +187 + 5, CARD_1.getY());
+	public static final Point CARD_6 = new Point(CARD_5.getX() +187 + 5, CARD_1.getY());
 	
 	public static final Point BOARD = new Point(15, 0);	
 	public static final Point SHIP_HOLD = new Point(560, 620);
@@ -24,10 +24,10 @@ public class DrawAreas {
 	public static final Point KNIGHT = new Point(941, 295);
 	public static final Point SHIP = new Point(490, 250);
 	
-	public static final Point DECK_PLAYER_1 = new Point(10, 600);
-	public static final Point DECK_PLAYER_2 = new Point(10, 700);
-	public static final Point COUNT_CARDS_PLAYER_1 = new Point(60, 600);
-	public static final Point COUNT_CARDS_PLAYER_2 = new Point(60, 700);
+	public static final Point DECK_PLAYER_1 = new Point(10, 700);
+	public static final Point DECK_PLAYER_2 = new Point(10, 900);
+	public static final Point COUNT_CARDS_PLAYER_1 = new Point(100, 800);
+	public static final Point COUNT_CARDS_PLAYER_2 = new Point(100, 1000);
 	public static final Point SCORE_PLAYER_1 = new Point(200, 600);
 	public static final Point SCORE_PLAYER_2 = new Point(200, 700);
 	public static final Point BONUS_PLAYER_1 = new Point(280, 600);

@@ -85,7 +85,7 @@ public class Drawer {
 		case GameEngine.GAMEPHASE_END:
 			break;
 		}
-		drawTouchAreas(c);
+		//drawTouchAreas(c);
 		
 
 		//int w = lib.get(R.drawable.board).getWidth();
