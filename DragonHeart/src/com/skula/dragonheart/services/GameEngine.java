@@ -405,7 +405,7 @@ public class GameEngine {
 	}
 
 	public int getGamePhase() {
-		return turnPhase;
+		return gamePhase;
 	}
 
 	public void setGamenPhase(int phase) {

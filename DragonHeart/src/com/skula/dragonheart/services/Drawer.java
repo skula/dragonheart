@@ -52,11 +52,15 @@ public class Drawer {
 				drawScore(c);
 				drawHand(c);
 				drawCardsSel(c);
+				paint.setColor(Color.LTGRAY);
+				paint.setTextSize(40f);
+				c.drawText("Cliquer pour finir le tour", DrawAreas.LOG.getX(), DrawAreas.LOG.getY(), paint);
 				break;
 			case GameEngine.TURNPHASE_WAIT_PLAYER:
 				drawBoard(c);
 				paint.setTextSize(40f);
-				c.drawText("En attente du joueur suivant", 150, 600, paint);
+				paint.setColor(Color.LTGRAY);
+				c.drawText("En attente du joueur suivant", DrawAreas.LOG.getX(), DrawAreas.LOG.getY(), paint);
 				break;
 			}
 			break;
@@ -80,6 +84,7 @@ public class Drawer {
 				c.drawText("msg a effacer", 150, 600, paint);
 				break;
 			}
+			paint.setColor(Color.LTGRAY);
 			c.drawText("Dernier tour !", DrawAreas.LOG.getX(), DrawAreas.LOG.getY(), paint);
 			break;
 		case GameEngine.GAMEPHASE_END:
