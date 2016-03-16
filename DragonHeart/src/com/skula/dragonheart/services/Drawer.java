@@ -28,17 +28,15 @@ public class Drawer {
 	private PictureLibrary lib;
 	private Paint paint;
 
-	private String log;
-
 	public Drawer(Resources res, GameEngine gEngine) {
 		this.paint = new Paint();
 		this.lib = new PictureLibrary(res);
 		this.gEngine = gEngine;
-		
+
 	}
 
-	public void draw(Canvas c) {		
-		switch(gEngine.getGamePhase()){
+	public void draw(Canvas c) {
+		switch (gEngine.getGamePhase()) {
 		case GameEngine.GAMEPHASE_INGAME:
 			switch (gEngine.getTurnPhase()) {
 			case GameEngine.TURNPHASE_PLAY:
@@ -86,29 +84,33 @@ public class Drawer {
 		case GameEngine.GAMEPHASE_END:
 			break;
 		}
-		//drawTouchAreas(c);
+		// drawTouchAreas(c);
 
-		//int w = lib.get(R.drawable.btn_next_player).getWidth();
-		//int h = lib.get(R.drawable.btn_next_player).getHeight();
-		//c.drawText("btn_next_player: " + w + ", " + h, 200, 200, paint);
+		// int w = lib.get(R.drawable.btn_next_player).getWidth();
+		// int h = lib.get(R.drawable.btn_next_player).getHeight();
+		// c.drawText("btn_next_player: " + w + ", " + h, 200, 200, paint);
 	}
 
 	private void drawScore(Canvas c) {
 		paint.setTextSize(60f);
 		paint.setColor(Color.WHITE);
-		
+
 		drawPict(c, R.drawable.deck_green, DrawAreas.DECK_PLAYER_1);
-		c.drawText(gEngine.players[0].getCardsLeft() + "", DrawAreas.COUNT_CARDS_PLAYER_1.getX(), DrawAreas.COUNT_CARDS_PLAYER_1.getY(), paint);
+		c.drawText(gEngine.players[0].getCardsLeft() + "", DrawAreas.COUNT_CARDS_PLAYER_1.getX(),
+				DrawAreas.COUNT_CARDS_PLAYER_1.getY(), paint);
 		drawPict(c, R.drawable.deck_red, DrawAreas.DECK_PLAYER_2);
-		c.drawText(gEngine.players[1].getCardsLeft() + "", DrawAreas.COUNT_CARDS_PLAYER_2.getX(), DrawAreas.COUNT_CARDS_PLAYER_2.getY(), paint);
+		c.drawText(gEngine.players[1].getCardsLeft() + "", DrawAreas.COUNT_CARDS_PLAYER_2.getX(),
+				DrawAreas.COUNT_CARDS_PLAYER_2.getY(), paint);
 
 		paint.setColor(Color.DKGRAY);
-		if(gEngine.getToken() == 0){
-			c.drawText(gEngine.players[0].getScore() + "pts", DrawAreas.SCORE_PLAYER_1.getX(), DrawAreas.SCORE_PLAYER_1.getY(), paint);
-		}else{
-			c.drawText(gEngine.players[1].getScore() + "pts", DrawAreas.SCORE_PLAYER_2.getX(), DrawAreas.SCORE_PLAYER_2.getY(), paint);
+		if (gEngine.getToken() == 0) {
+			c.drawText(gEngine.players[0].getScore() + "pts", DrawAreas.SCORE_PLAYER_1.getX(),
+					DrawAreas.SCORE_PLAYER_1.getY(), paint);
+		} else {
+			c.drawText(gEngine.players[1].getScore() + "pts", DrawAreas.SCORE_PLAYER_2.getX(),
+					DrawAreas.SCORE_PLAYER_2.getY(), paint);
 		}
-		
+
 		if (gEngine.players[0].hasBonus()) {
 			drawPict(c, R.drawable.bonus, DrawAreas.BONUS_PLAYER_1);
 		}
@@ -118,7 +120,7 @@ public class Drawer {
 	}
 
 	private void drawBoard(Canvas c) {
-		//drawPict(c, R.drawable.parchemin, new Rect(0,0,1350,756));
+		// drawPict(c, R.drawable.parchemin, new Rect(0,0,1350,756));
 		drawPict(c, R.drawable.board, DrawAreas.BOARD);
 		Map<CardType, List<Card>> board = gEngine.getBoard();
 		Point p = null;
@@ -146,7 +148,7 @@ public class Drawer {
 
 		paint.setTextSize(50f);
 		paint.setColor(Color.WHITE);
-		c.drawText("x " + gEngine.getAct() + "/3",DrawAreas.ACTS.getX(), DrawAreas.ACTS.getY(), paint);
+		c.drawText("x " + gEngine.getAct() + "/3", DrawAreas.ACTS.getX(), DrawAreas.ACTS.getY(), paint);
 	}
 
 	private void drawTouchAreas(Canvas c) {
@@ -169,9 +171,9 @@ public class Drawer {
 
 	private void drawHand(Canvas c) {
 		Player p = gEngine.getPlayer();
-		for(int i =0; i<6; i++){
-			if(p.getCard(i)!= null){
-				switch(i){
+		for (int i = 0; i < 6; i++) {
+			if (p.getCard(i) != null) {
+				switch (i) {
 				case 0:
 					drawPict(c, p.getCard(0).getDrawableId(), DrawAreas.CARD_1);
 					break;
@@ -236,7 +238,7 @@ public class Drawer {
 		Rect dest = new Rect(0 + p.getX(), 0 + p.getY(), bmp.getWidth() + p.getX(), bmp.getHeight() + p.getY());
 		c.drawBitmap(bmp, src, dest, paint);
 	}
-	
+
 	private void drawPict(Canvas c, int id, Rect dest) {
 		Bitmap bmp = lib.get(id);
 		Rect src = new Rect(0, 0, bmp.getWidth(), bmp.getHeight());

@@ -109,7 +109,6 @@ public class GameEngine {
 			if (selCards.isEmpty()) {
 				return false;
 			}
-			CardType ct = players[token].getCard(selCards.get(0)).getType();
 			if (handleCardPlayed()) {
 				if (mode == MODE_PLAY) {
 					turnPhase = TURNPHASE_END_TURN;
