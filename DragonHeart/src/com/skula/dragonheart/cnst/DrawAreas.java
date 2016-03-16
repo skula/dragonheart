@@ -4,7 +4,7 @@ import com.skula.dragonheart.enums.CardType;
 import com.skula.dragonheart.models.Point;
 
 public class DrawAreas {
-	public static final Point CARD_1 = new Point(765, 780);
+	public static final Point CARD_1 = new Point(765, 800);
 	public static final Point CARD_2 = new Point(CARD_1.getX() +187 + 5, CARD_1.getY());
 	public static final Point CARD_3 = new Point(CARD_2.getX() +187 + 5, CARD_1.getY());
 	public static final Point CARD_4 = new Point(CARD_3.getX() +187 + 5, CARD_1.getY());
@@ -35,7 +35,8 @@ public class DrawAreas {
 	public static final Point BONUS_PLAYER_2= new Point(DECK_PLAYER_2.getX()+180, DECK_PLAYER_2.getY() + 70);
 	
 	public static final Point ACTS = new Point(740, 450);
-	public static final Point LOG = new Point(1000, 740);
+	public static final Point BTN_END_TURN = new Point(1000, 670);
+	public static final Point BTN_NEXT_PLAYER = new Point(650, 800);
 	
 	public static Point get(CardType ct){
 		switch(ct){

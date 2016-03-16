@@ -28,4 +28,9 @@ public class TouchAreas {
 	public static final int PRINCESS_ID = 9;
 	public static final Rect TROLL = new Rect(DrawAreas.TROLL.getX(), DrawAreas.TROLL.getY(), DrawAreas.TROLL.getX() +187, DrawAreas.TROLL.getY()+296);
 	public static final int TROLL_ID = 10;
+	
+	public static final Rect BTN_END_TURN = new Rect(DrawAreas.BTN_END_TURN.getX(), DrawAreas.BTN_END_TURN.getY(), DrawAreas.BTN_END_TURN.getX() +400, DrawAreas.BTN_END_TURN.getY()+133);
+	public static final int BTN_END_TURN_ID = 10;
+	public static final Rect BTN_NEXT_PLAYER = new Rect(DrawAreas.BTN_NEXT_PLAYER.getX(), DrawAreas.BTN_NEXT_PLAYER.getY(), DrawAreas.BTN_NEXT_PLAYER.getX() +667, DrawAreas.BTN_NEXT_PLAYER.getY()+133);
+	public static final int BTN_NEXT_PLAYER_ID = 10;
 }

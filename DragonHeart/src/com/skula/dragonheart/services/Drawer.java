@@ -52,15 +52,11 @@ public class Drawer {
 				drawScore(c);
 				drawHand(c);
 				drawCardsSel(c);
-				paint.setColor(Color.LTGRAY);
-				paint.setTextSize(40f);
-				c.drawText("Cliquer pour finir le tour", DrawAreas.LOG.getX(), DrawAreas.LOG.getY(), paint);
+				drawPict(c, R.drawable.btn_end_turn, DrawAreas.BTN_END_TURN);
 				break;
 			case GameEngine.TURNPHASE_WAIT_PLAYER:
 				drawBoard(c);
-				paint.setTextSize(40f);
-				paint.setColor(Color.LTGRAY);
-				c.drawText("En attente du joueur suivant", DrawAreas.LOG.getX(), DrawAreas.LOG.getY(), paint);
+				drawPict(c, R.drawable.btn_next_player, DrawAreas.BTN_NEXT_PLAYER);
 				break;
 			}
 			break;
@@ -85,17 +81,16 @@ public class Drawer {
 				break;
 			}
 			paint.setColor(Color.LTGRAY);
-			c.drawText("Dernier tour !", DrawAreas.LOG.getX(), DrawAreas.LOG.getY(), paint);
+			c.drawText("Dernier tour !", DrawAreas.BTN_END_TURN.getX(), DrawAreas.BTN_END_TURN.getY(), paint);
 			break;
 		case GameEngine.GAMEPHASE_END:
 			break;
 		}
 		//drawTouchAreas(c);
-		
 
-		//int w = lib.get(R.drawable.board).getWidth();
-		//int h = lib.get(R.drawable.board).getHeight();
-		//c.drawText("board: " + w + ", " + h, 200, 200, paint);
+		//int w = lib.get(R.drawable.btn_next_player).getWidth();
+		//int h = lib.get(R.drawable.btn_next_player).getHeight();
+		//c.drawText("btn_next_player: " + w + ", " + h, 200, 200, paint);
 	}
 
 	private void drawScore(Canvas c) {

@@ -44,11 +44,15 @@ public class BoardView extends View {
 					gEngine.process(area);
 					break;
 				case GameEngine.TURNPHASE_END_TURN:
-					gEngine.setTurnPhase(GameEngine.TURNPHASE_WAIT_PLAYER);
+					if (TouchAreas.BTN_END_TURN.contains(x, y)) {
+						gEngine.setTurnPhase(GameEngine.TURNPHASE_WAIT_PLAYER);
+					}
 					break;
 				case GameEngine.TURNPHASE_WAIT_PLAYER:
-					gEngine.setTurnPhase(GameEngine.TURNPHASE_PLAY);
-					gEngine.nextPlayer();
+					if (TouchAreas.BTN_NEXT_PLAYER.contains(x, y)) {
+						gEngine.setTurnPhase(GameEngine.TURNPHASE_PLAY);
+						gEngine.nextPlayer();
+					}
 					break;
 				}
 			}
