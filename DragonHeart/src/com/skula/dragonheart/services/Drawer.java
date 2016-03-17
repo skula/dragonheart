@@ -38,8 +38,6 @@ public class Drawer {
 	public void draw(Canvas c) {
 		switch (gEngine.getGamePhase()) {
 		case GameEngine.GAMEPHASE_LAST_TURN:
-			paint.setColor(Color.LTGRAY);
-			c.drawText("Dernier tour !", DrawAreas.BTN_END_TURN.getX(), DrawAreas.BTN_END_TURN.getY(), paint);
 		case GameEngine.GAMEPHASE_INGAME:
 			switch (gEngine.getTurnPhase()) {
 			case GameEngine.TURNPHASE_PLAY:
@@ -62,18 +60,41 @@ public class Drawer {
 			}
 			break;
 		case GameEngine.GAMEPHASE_END:
-			// TODO
+			drawBoard(c);
+			drawScore(c);
+			drawHand(c);
+			drawCardsSel(c);
+			drawPict(c, R.drawable.final_score, DrawAreas.FINAL_SCORE);
+			paint.setTextSize(80f);
+			paint.setColor(Color.WHITE);
+			if (gEngine.getPlayer(0).getScore() > gEngine.getPlayer(1).getScore()) {
+				c.drawText("Joueur 1 gagne !", DrawAreas.FINAL_SCORE.getX() + 100, DrawAreas.FINAL_SCORE.getY() + 150,
+						paint);
+				paint.setTextSize(60f);
+				c.drawText("Joueur 1 : " + gEngine.getPlayer(0).getScore() + " pts", DrawAreas.FINAL_SCORE.getX() + 90,
+						DrawAreas.FINAL_SCORE.getY() + 300, paint);
+				c.drawText("Joueur 2 : " + gEngine.getPlayer(1).getScore() + " pts", DrawAreas.FINAL_SCORE.getX() + 90,
+						DrawAreas.FINAL_SCORE.getY() + 425, paint);
+			} else {
+				c.drawText("Joueur 2 gagne !", DrawAreas.FINAL_SCORE.getX() + 100, DrawAreas.FINAL_SCORE.getY() + 150,
+						paint);
+				paint.setTextSize(60f);
+				c.drawText("Joueur 2 : " + gEngine.getPlayer(1).getScore() + " pts", DrawAreas.FINAL_SCORE.getX() + 90,
+						DrawAreas.FINAL_SCORE.getY() + 300, paint);
+				c.drawText("Joueur 1 : " + gEngine.getPlayer(0).getScore() + " pts", DrawAreas.FINAL_SCORE.getX() + 90,
+						DrawAreas.FINAL_SCORE.getY() + 425, paint);
+			}
 			break;
 		}
 		// drawTouchAreas(c);
 
-		// int w = lib.get(R.drawable.btn_next_player).getWidth();
-		// int h = lib.get(R.drawable.btn_next_player).getHeight();
-		// c.drawText("btn_next_player: " + w + ", " + h, 200, 200, paint);
+		// int w = lib.get(R.drawable.final_score).getWidth();
+		// int h = lib.get(R.drawable.final_score).getHeight();
+		// c.drawText("final_score: " + w + ", " + h, 200, 200, paint);
 	}
 
 	private void drawScore(Canvas c) {
-		paint.setTextSize(60f);
+		paint.setTextSize(70f);
 		paint.setColor(Color.WHITE);
 
 		drawPict(c, R.drawable.deck_green, DrawAreas.DECK_PLAYER_1);
@@ -83,12 +104,12 @@ public class Drawer {
 		c.drawText(gEngine.players[1].getCardsLeft() + "", DrawAreas.COUNT_CARDS_PLAYER_2.getX(),
 				DrawAreas.COUNT_CARDS_PLAYER_2.getY(), paint);
 
-		paint.setColor(Color.DKGRAY);
+		paint.setColor(Color.WHITE);
 		if (gEngine.getToken() == 0) {
-			c.drawText(gEngine.players[0].getScore() + "pts", DrawAreas.SCORE_PLAYER_1.getX(),
+			c.drawText(gEngine.players[0].getScore() + " pts", DrawAreas.SCORE_PLAYER_1.getX(),
 					DrawAreas.SCORE_PLAYER_1.getY(), paint);
 		} else {
-			c.drawText(gEngine.players[1].getScore() + "pts", DrawAreas.SCORE_PLAYER_2.getX(),
+			c.drawText(gEngine.players[1].getScore() + " pts", DrawAreas.SCORE_PLAYER_2.getX(),
 					DrawAreas.SCORE_PLAYER_2.getY(), paint);
 		}
 
