@@ -31,12 +31,14 @@ public class GameEngine {
 	private List<Integer> selCards;
 
 	private int act;
+	private boolean canFillHand;
 	private int mode;
 	private int turnPhase;
 	private int gamePhase;
 
 	public GameEngine() {
 		this.act = 0;
+		this.canFillHand = true;
 		this.mode = MODE_PLAY;
 		this.turnPhase = TURNPHASE_PLAY;
 		this.gamePhase = GAMEPHASE_INGAME;
@@ -63,11 +65,11 @@ public class GameEngine {
 		this.selCards = new ArrayList<Integer>();
 
 		// bouchon:
-		if (false) {
+		if (true) {
 			//selCards.add(1);
 			//selCards.add(3);
 			//selCards.add(4);
-			this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_1, CardType.HUNTRESS, 1));
+			/*this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_1, CardType.HUNTRESS, 1));
 			this.board.get(CardType.HUNTRESS).add(new Card(R.drawable.huntress_2, CardType.HUNTRESS, 2));
 			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
 			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
@@ -87,7 +89,10 @@ public class GameEngine {
 
 			this.shipHold.add(new Card(R.drawable.knight_1, CardType.KNIGHT, 1));
 
-			players[token].setBonus(true);
+			players[token].setBonus(true);*/
+			act = 2;
+			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
+			this.board.get(CardType.SHIP).add(new Card(R.drawable.ship, CardType.SHIP, 1));
 		}
 	}
 
@@ -198,7 +203,8 @@ public class GameEngine {
 				
 				// on rempli la main
 				if(!players[token].fillHand()){
-					gamePhase = GAMEPHASE_LAST_TURN;
+					// gamePhase = GAMEPHASE_LAST_TURN;
+					canFillHand = false;
 				}
 
 				// on prend les dragons de feu
@@ -214,7 +220,8 @@ public class GameEngine {
 				
 				// on rempli la main
 				if(!players[token].fillHand()){
-					gamePhase = GAMEPHASE_LAST_TURN;
+					// gamePhase = GAMEPHASE_LAST_TURN;
+					canFillHand = false;
 				}
 				return true;
 			}
@@ -226,7 +233,8 @@ public class GameEngine {
 			
 			// on rempli la main
 			if(!players[token].fillHand()){
-				gamePhase = GAMEPHASE_LAST_TURN;
+				// gamePhase = GAMEPHASE_LAST_TURN;
+				canFillHand = false;
 			}
 			
 			// on prend les trésors
@@ -243,7 +251,8 @@ public class GameEngine {
 			
 			// on rempli la main
 			if(!players[token].fillHand()){
-				gamePhase = GAMEPHASE_LAST_TURN;
+				// gamePhase = GAMEPHASE_LAST_TURN;
+				canFillHand = false;
 			}
 			return true;
 		case PRINCESS:
@@ -253,7 +262,8 @@ public class GameEngine {
 			
 			// on rempli la main
 			if(!players[token].fillHand()){
-				gamePhase = GAMEPHASE_LAST_TURN;
+				// gamePhase = GAMEPHASE_LAST_TURN;
+				canFillHand = false;
 			}
 			mode = MODE_CHOOSE_PRINCESS;
 			return true;
@@ -265,7 +275,8 @@ public class GameEngine {
 			
 			// on rempli la main
 			if(!players[token].fillHand()){
-				gamePhase = GAMEPHASE_LAST_TURN;
+				// gamePhase = GAMEPHASE_LAST_TURN;
+				canFillHand = false;
 			}
 			return true;
 		case DWARF:
@@ -286,13 +297,15 @@ public class GameEngine {
 				
 				// on rempli la main
 				if(!players[token].fillHand()){
-					gamePhase = GAMEPHASE_LAST_TURN;
+					// gamePhase = GAMEPHASE_LAST_TURN;
+					canFillHand = false;
 				}
 				return true;
 			} else {
 				// on rempli la main
 				if(!players[token].fillHand()){
-					gamePhase = GAMEPHASE_LAST_TURN;
+					// gamePhase = GAMEPHASE_LAST_TURN;
+					canFillHand = false;
 				}
 				// on ajoute les nains
 				for (Integer i : selCards) {
@@ -308,7 +321,8 @@ public class GameEngine {
 			
 			// on rempli la main
 			if(!players[token].fillHand()){
-				gamePhase = GAMEPHASE_LAST_TURN;
+				// gamePhase = GAMEPHASE_LAST_TURN;
+				canFillHand = false;
 			}
 			
 			// on prend les putes a cheval
@@ -334,7 +348,8 @@ public class GameEngine {
 				
 				// on rempli la main
 				if(!players[token].fillHand()){
-					gamePhase = GAMEPHASE_LAST_TURN;
+					// gamePhase = GAMEPHASE_LAST_TURN;
+					canFillHand = false;
 				}
 
 				mode = MODE_CHOOSE_KNIGHT;
@@ -346,7 +361,8 @@ public class GameEngine {
 				
 				// on rempli la main
 				if(!players[token].fillHand()){
-					gamePhase = GAMEPHASE_LAST_TURN;
+					// gamePhase = GAMEPHASE_LAST_TURN;
+					canFillHand = false;
 				}
 				return true;
 			}
@@ -362,18 +378,15 @@ public class GameEngine {
 
 				// on rempli la main
 				if(!players[token].fillHand()){
-					gamePhase = GAMEPHASE_LAST_TURN;
+					// gamePhase = GAMEPHASE_LAST_TURN;
+					canFillHand = false;
 				}
 				
 				for (Card c : shipHold) {
 					players[token].addPoints(c.getPoints());
 				}
 				shipHold.clear();
-
 				act++;
-				if (act == 3) {
-					gamePhase = GAMEPHASE_LAST_TURN;
-				}
 				return true;
 			} else {
 				// on ajoute les navires
@@ -383,7 +396,8 @@ public class GameEngine {
 
 				// on rempli la main
 				if(!players[token].fillHand()){
-					gamePhase = GAMEPHASE_LAST_TURN;
+					// gamePhase = GAMEPHASE_LAST_TURN;
+					canFillHand = false;
 				}
 				return true;
 			}
@@ -412,6 +426,14 @@ public class GameEngine {
 	}
 
 	public void nextPlayer() {
+		if(gamePhase == GAMEPHASE_LAST_TURN){
+			this.gamePhase = GAMEPHASE_END;
+		}else{
+			if(!canFillHand || act == 3){
+				this.gamePhase = GAMEPHASE_LAST_TURN;
+			}
+		}
+		
 		token = token == 0 ? 1 : 0;
 	}
 

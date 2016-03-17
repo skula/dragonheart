@@ -37,6 +37,9 @@ public class Drawer {
 
 	public void draw(Canvas c) {
 		switch (gEngine.getGamePhase()) {
+		case GameEngine.GAMEPHASE_LAST_TURN:
+			paint.setColor(Color.LTGRAY);
+			c.drawText("Dernier tour !", DrawAreas.BTN_END_TURN.getX(), DrawAreas.BTN_END_TURN.getY(), paint);
 		case GameEngine.GAMEPHASE_INGAME:
 			switch (gEngine.getTurnPhase()) {
 			case GameEngine.TURNPHASE_PLAY:
@@ -58,30 +61,8 @@ public class Drawer {
 				break;
 			}
 			break;
-		case GameEngine.GAMEPHASE_LAST_TURN:
-			switch (gEngine.getTurnPhase()) {
-			case GameEngine.TURNPHASE_PLAY:
-				drawBoard(c);
-				drawScore(c);
-				drawHand(c);
-				drawCardsSel(c);
-				break;
-			case GameEngine.TURNPHASE_END_TURN:
-				drawBoard(c);
-				drawScore(c);
-				drawHand(c);
-				drawCardsSel(c);
-				break;
-			case GameEngine.TURNPHASE_WAIT_PLAYER:
-				drawBoard(c);
-				paint.setTextSize(40f);
-				c.drawText("msg a effacer", 150, 600, paint);
-				break;
-			}
-			paint.setColor(Color.LTGRAY);
-			c.drawText("Dernier tour !", DrawAreas.BTN_END_TURN.getX(), DrawAreas.BTN_END_TURN.getY(), paint);
-			break;
 		case GameEngine.GAMEPHASE_END:
+			// TODO
 			break;
 		}
 		// drawTouchAreas(c);
