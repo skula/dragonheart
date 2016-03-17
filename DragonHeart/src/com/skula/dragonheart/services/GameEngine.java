@@ -131,9 +131,11 @@ public class GameEngine {
 			for (Card c : board.get(CardType.DRAGON_STONE)) {
 				players[token].addPoints(c.getPoints());
 			}
+			if(!board.get(CardType.DRAGON_STONE).isEmpty()){
+				players[token].setBonus(true);
+				players[token == 0 ? 1 : 0].setBonus(false);
+			}
 			board.get(CardType.DRAGON_STONE).clear();
-			players[token].setBonus(true);
-			players[token == 0 ? 1 : 0].setBonus(false);
 			mode = MODE_PLAY;
 			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
