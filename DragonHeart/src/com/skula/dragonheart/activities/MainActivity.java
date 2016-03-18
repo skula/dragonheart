@@ -14,4 +14,9 @@ public class MainActivity extends Activity {
 
 		setContentView(new BoardView(this, new GameEngine()));
 	}
+
+	@Override
+	public void onBackPressed() {
+
+	}
 }
