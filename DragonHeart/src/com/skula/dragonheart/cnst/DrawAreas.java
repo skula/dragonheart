@@ -26,17 +26,17 @@ public class DrawAreas {
 	
 	public static final Point DECK_PLAYER_1 = new Point(10, 700);
 	public static final Point COUNT_CARDS_PLAYER_1 = new Point(DECK_PLAYER_1.getX()+90, DECK_PLAYER_1.getY() + 110);
-	public static final Point SCORE_PLAYER_1 = new Point(DECK_PLAYER_1.getX()+340, DECK_PLAYER_1.getY()+100);
+	public static final Point SCORE_PLAYER_1 = new Point(DECK_PLAYER_1.getX()+320, DECK_PLAYER_1.getY()+100);
 	public static final Point BONUS_PLAYER_1 = new Point(DECK_PLAYER_1.getX()+180, DECK_PLAYER_1.getY() + 70);
 	
 	public static final Point DECK_PLAYER_2 = new Point(10, 900);
 	public static final Point COUNT_CARDS_PLAYER_2 = new Point(DECK_PLAYER_2.getX()+90, DECK_PLAYER_2.getY() + 110);
-	public static final Point SCORE_PLAYER_2 = new Point(DECK_PLAYER_2.getX()+340, DECK_PLAYER_2.getY()+100);
+	public static final Point SCORE_PLAYER_2 = new Point(DECK_PLAYER_2.getX()+320, DECK_PLAYER_2.getY()+100);
 	public static final Point BONUS_PLAYER_2= new Point(DECK_PLAYER_2.getX()+180, DECK_PLAYER_2.getY() + 70);
 	
 	public static final Point ACTS = new Point(740, 450);
 	public static final Point BTN_END_TURN = new Point(1000, 670);
-	public static final Point BTN_NEXT_PLAYER = new Point(650, 850);
+	public static final Point BTN_NEXT_PLAYER = new Point(1000, 775);
 	
 	public static final Point FINAL_SCORE = new Point(550, 300);
 	

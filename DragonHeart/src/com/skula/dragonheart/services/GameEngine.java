@@ -327,7 +327,7 @@ public class GameEngine {
 					// gamePhase = GAMEPHASE_LAST_TURN;
 					canFillHand = false;
 				}
-				log = "Joueur " + (token+1) + " pose " + selCards.size() + " nain(s)";
+				log = "Joueur " + (token+1) + " pose " + selCards.size() + " nain(s) et remporte la pile";
 				return true;
 			} else {
 				// on ajoute les nains

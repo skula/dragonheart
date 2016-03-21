@@ -3,12 +3,14 @@ package com.skula.dragonheart.services;
 import java.util.List;
 import java.util.Map;
 
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 import com.skula.dragonheart.R;
 import com.skula.dragonheart.cnst.DrawAreas;
@@ -27,12 +29,16 @@ public class Drawer {
 
 	private PictureLibrary lib;
 	private Paint paint;
+	private AssetManager assetManager;
 
 	public Drawer(Resources res, GameEngine gEngine) {
+		this.assetManager = res.getAssets();
+		Typeface plain = Typeface.createFromAsset(assetManager, "fonts/COOPBL.TTF");
 		this.paint = new Paint();
+		this.paint.setTypeface(plain);
+		this.paint.setTextSize(60f);
 		this.lib = new PictureLibrary(res);
 		this.gEngine = gEngine;
-
 	}
 
 	public void draw(Canvas c) {
@@ -55,7 +61,8 @@ public class Drawer {
 				break;
 			case GameEngine.TURNPHASE_WAIT_PLAYER:
 				drawBoard(c);
-				c.drawText(gEngine.getLog(), 100, 775, paint);
+				this.paint.setColor(Color.parseColor("#297eb4"));
+				c.drawText(gEngine.getLog(), 100, 1000, paint);
 				drawPict(c, R.drawable.btn_next_player, DrawAreas.BTN_NEXT_PLAYER);
 				break;
 			}
