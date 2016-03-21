@@ -36,7 +36,7 @@ public class DrawAreas {
 	
 	public static final Point ACTS = new Point(740, 450);
 	public static final Point BTN_END_TURN = new Point(1000, 670);
-	public static final Point BTN_NEXT_PLAYER = new Point(850, 800);
+	public static final Point BTN_NEXT_PLAYER = new Point(650, 850);
 	
 	public static final Point FINAL_SCORE = new Point(550, 300);
 	

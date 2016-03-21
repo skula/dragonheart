@@ -55,6 +55,7 @@ public class Drawer {
 				break;
 			case GameEngine.TURNPHASE_WAIT_PLAYER:
 				drawBoard(c);
+				c.drawText(gEngine.getLog(), 100, 775, paint);
 				drawPict(c, R.drawable.btn_next_player, DrawAreas.BTN_NEXT_PLAYER);
 				break;
 			}

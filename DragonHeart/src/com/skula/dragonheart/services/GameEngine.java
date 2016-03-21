@@ -35,8 +35,10 @@ public class GameEngine {
 	private int mode;
 	private int turnPhase;
 	private int gamePhase;
+	private String log;
 
 	public GameEngine() {
+		this.log = "";
 		this.act = 0;
 		this.canFillHand = true;
 		this.mode = MODE_PLAY;
@@ -146,6 +148,7 @@ public class GameEngine {
 			mode = MODE_PLAY;
 			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
+			log +=" et prend les trésors";
 			return true;
 		case TouchAreas.DRAGON_STONE_ID:
 			for (Card c : board.get(CardType.DRAGON_STONE)) {
@@ -159,6 +162,7 @@ public class GameEngine {
 			mode = MODE_PLAY;
 			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
+			log +=", prend les dragons de pierre et le bonus";
 			return true;
 		case TouchAreas.PRINCESS_ID:
 			for (Card c : board.get(CardType.PRINCESS)) {
@@ -168,6 +172,7 @@ public class GameEngine {
 			mode = MODE_PLAY;
 			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
+			log +=" et prend les princesses";
 			return true;
 		case TouchAreas.TROLL_ID:
 			for (Card c : board.get(CardType.TROLL)) {
@@ -177,6 +182,7 @@ public class GameEngine {
 			mode = MODE_PLAY;
 			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
+			log +=" et prend les trolls";
 			return true;
 		default:
 			return false;
@@ -227,6 +233,7 @@ public class GameEngine {
 					players[token].addPoints(c.getPoints());
 				}
 				board.get(CardType.DRAGON_FIRE).clear();
+				log = "Joueur " + (token+1) + " pose " + selCards.size() + " chasseuses et prend les dragons de feu";
 				return true;
 			} else {
 				for (Integer i : selCards) {
@@ -238,6 +245,7 @@ public class GameEngine {
 					// gamePhase = GAMEPHASE_LAST_TURN;
 					canFillHand = false;
 				}
+				log = "Joueur " + (token+1) + " pose " + selCards.size() + " chasseuses";
 				return true;
 			}
 		case DRAGON_FIRE:
@@ -257,6 +265,7 @@ public class GameEngine {
 				players[token].addPoints(c.getPoints());
 			}
 			board.get(CardType.TREASURE).clear();
+			log = "Joueur " + (token+1) + " pose " + selCards.size() + " dragon(s) de feu";
 			return true;
 		case TREASURE:
 			// on ajout les tresors
@@ -269,6 +278,7 @@ public class GameEngine {
 				// gamePhase = GAMEPHASE_LAST_TURN;
 				canFillHand = false;
 			}
+			log = "Joueur " + (token+1) + " pose " + selCards.size() + " tresore(s)";
 			return true;
 		case PRINCESS:
 			for (Integer i : selCards) {
@@ -281,6 +291,7 @@ public class GameEngine {
 				canFillHand = false;
 			}
 			mode = MODE_CHOOSE_PRINCESS;
+			log = "Joueur " + (token+1) + " pose " + selCards.size() + " princesse(s)";
 			return true;
 		case DRAGON_STONE:
 			// on ajout les dragons de pierre
@@ -293,6 +304,7 @@ public class GameEngine {
 				// gamePhase = GAMEPHASE_LAST_TURN;
 				canFillHand = false;
 			}
+			log = "Joueur " + (token+1) + " pose " + selCards.size() + " dragon(s) de pierre";
 			return true;
 		case DWARF:
 			tmp = board.get(CardType.DWARF).size() + selCards.size();
@@ -315,6 +327,7 @@ public class GameEngine {
 					// gamePhase = GAMEPHASE_LAST_TURN;
 					canFillHand = false;
 				}
+				log = "Joueur " + (token+1) + " pose " + selCards.size() + " nain(s)";
 				return true;
 			} else {
 				// on ajoute les nains
@@ -327,6 +340,7 @@ public class GameEngine {
 					// gamePhase = GAMEPHASE_LAST_TURN;
 					canFillHand = false;
 				}
+				log = "Joueur " + (token+1) + " pose " + selCards.size() + " nain(s)";
 				return true;
 			}
 		case TROLL:
@@ -346,6 +360,7 @@ public class GameEngine {
 				players[token].addPoints(c.getPoints());
 			}
 			board.get(CardType.PRINCESS).clear();
+			log = "Joueur " + (token+1) + " pose " + selCards.size() + " troll(s)";
 			return true;
 		case KNIGHT:
 			tmp = board.get(CardType.KNIGHT).size() + selCards.size();
@@ -369,6 +384,7 @@ public class GameEngine {
 				}
 
 				mode = MODE_CHOOSE_KNIGHT;
+				log = "Joueur " + (token+1) + " pose " + selCards.size() + " chevalier(s)";
 				return true;
 			} else {
 				for (Integer i : selCards) {
@@ -380,6 +396,7 @@ public class GameEngine {
 					// gamePhase = GAMEPHASE_LAST_TURN;
 					canFillHand = false;
 				}
+				log = "Joueur " + (token+1) + " pose " + selCards.size() + " chevalier(s)";
 				return true;
 			}
 		case SHIP:
@@ -403,6 +420,7 @@ public class GameEngine {
 				}
 				shipHold.clear();
 				act++;
+				log = "Joueur " + (token+1) + " pose " + selCards.size() + " navire(s)";
 				return true;
 			} else {
 				// on ajoute les navires
@@ -415,6 +433,7 @@ public class GameEngine {
 					// gamePhase = GAMEPHASE_LAST_TURN;
 					canFillHand = false;
 				}
+				log = "Joueur " + (token+1) + " pose " + selCards.size() + " navire(s)";
 				return true;
 			}
 		}
@@ -485,5 +504,9 @@ public class GameEngine {
 
 	public int getAct() {
 		return act;
+	}
+	
+	public String getLog(){
+		return log;
 	}
 }
