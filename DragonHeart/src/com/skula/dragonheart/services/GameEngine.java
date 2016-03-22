@@ -162,7 +162,11 @@ public class GameEngine {
 			mode = MODE_PLAY;
 			turnPhase = TURNPHASE_END_TURN;
 			selCards.clear();
-			log +=", prend les dragons de pierre et le bonus";
+			if(players[token].hasBonus()){
+				log +=", prend les dragons de pierre et le bonus";
+			}else{
+				log +=" et prend aucun dragon de pierre";
+			}
 			return true;
 		case TouchAreas.PRINCESS_ID:
 			for (Card c : board.get(CardType.PRINCESS)) {
